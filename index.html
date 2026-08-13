@@ -370,16 +370,51 @@
         .sticky-ad {
             position: fixed;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
             width: 100%;
-            max-width: 500px;
-            max-height: 60px;
-            overflow: hidden;
-            background: #fff;
+            background-color: #fff;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             border-top: 1px solid #e0e0e0;
             z-index: 9999;
             text-align: center;
+        }
+
+        .dynamic-guide-banner {
+            background-color: #f1f8ff;
+            border: 1px solid #cce5ff;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: transform 0.2s;
+        }
+        .dynamic-guide-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .dynamic-guide-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+        .dynamic-guide-text h4 {
+            margin: 0 0 5px 0;
+            color: #0056b3;
+            font-size: 1rem;
+        }
+        .dynamic-guide-text p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        .dynamic-guide-arrow {
+            font-weight: bold;
+            color: #0056b3;
         }
     </style>
 </head>
@@ -417,6 +452,9 @@
         <div id="coupangDisclaimer" style="display:none; font-size: 0.7rem; color: #999; text-align: center; margin-bottom: 20px;">
             이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
         </div>
+
+        <!-- 동적 추천 가이드 영역 -->
+        <a id="dynamicGuideContainer" class="dynamic-guide-banner" style="display:none;" href="#"></a>
 
         <div class="progress-container" id="progressContainer">
             <div class="progress-bar" id="progressBar"></div>
