@@ -447,10 +447,18 @@
             <p><strong>💡 부모 대처 팁:</strong> <br><span id="infoTips"></span></p>
         </div>
 
-        <!-- 동적 제휴 배너 영역 (삭제됨 - 가이드 내부로 이동) -->
-
         <!-- 동적 추천 가이드 영역 -->
         <a id="dynamicGuideContainer" class="dynamic-guide-banner" style="display:none;" href="#"></a>
+
+        <!-- 메인 페이지 핫딜 배너 (수익화 창구) -->
+        <a id="mainAdBanner" class="affiliate-banner" style="display:none; text-decoration:none; color:inherit; margin-top:20px;" href="#" target="_blank">
+            <div style="font-size: 2rem;">📦</div>
+            <div class="affiliate-content">
+                <span class="affiliate-badge">육아 핫딜 기획전</span>
+                <p><strong>[쿠팡] 육아 필수템 기저귀/분유 로켓 특가전!</strong><br>내일 당장 필요한 육아템, 품절 전 쟁여두세요 ✨</p>
+                <div style="font-size: 0.7rem; color: #999; margin-top: 5px;">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
+            </div>
+        </a>
 
         <div class="progress-container" id="progressContainer">
             <div class="progress-bar" id="progressBar"></div>
@@ -585,6 +593,7 @@
             const timelineContainer = document.getElementById('timelineContainer');
             const timelineList = document.getElementById('timelineList');
             const finalEndDateElement = document.getElementById('finalEndDate');
+            const mainAdBanner = document.getElementById('mainAdBanner');
 
             if (finalEndDateElement) finalEndDateElement.innerText = formatFinalDate;
 
@@ -595,6 +604,7 @@
             if (progressContainer) progressContainer.style.display = 'block';
             if (timelineContainer) timelineContainer.style.display = 'block';
             if (infoCard) infoCard.style.display = 'block'; 
+            if (mainAdBanner) mainAdBanner.style.display = 'flex';
 
             if (progressBar) {
                 let percent = (currentWeek / 75) * 100;
