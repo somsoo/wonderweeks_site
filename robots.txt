@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wonderweeks.enjoy-onepage.com/sitemap.xml
+Sitemap: https://wonderweeksportal.enjoy-onepage.com/sitemap.xml
