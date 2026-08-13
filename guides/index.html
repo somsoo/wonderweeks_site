@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>원더윅스 생존 가이드 모아보기 | 아기 발달 시기별 팁</title>
+    <meta name="description" content="신생아 수면교육부터 이유식 거부까지, 초보 부모를 위한 원더윅스 시기별 완벽 대처 가이드와 필수 육아템 추천 모음.">
+    
+    <!-- Open Graph (Kakao, Facebook) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="원더윅스 생존 가이드 전체 보기 📚">
+    <meta property="og:description" content="수면퇴행, 분리불안, 이유식 거부? 시기별 발달에 맞춘 생존 팁과 육아템을 확인하세요.">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --primary-light: #F0F6FC;
+            --bg: #F8FAFC;
+            --text: #2D3748;
+            --text-light: #718096;
+            --border: #E2E8F0;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 헤더 (메인으로 돌아가기 포함) */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            background: #fff;
+            border: 1px solid var(--border);
+        }
+
+        /* 그리드 디자인 */
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .guide-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .guide-card-img {
+            height: 160px;
+            background-color: var(--border);
+            width: 100%;
+        }
+
+        .guide-card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .guide-card-tag {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .guide-card-title {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .guide-card-desc {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📚 원더윅스 생존 가이드</h1>
+            <a href="../index.html" class="back-btn">← 계산기로 돌아가기</a>
+        </header>
+
+        <p style="margin-bottom: 30px; color: var(--text-light);">시기별 아기 발달의 특징과 부모님들을 위한 핵심 대처법, 그리고 삶의 질을 높여주는 필수 육아템 정보를 모았습니다.</p>
+
+        <div class="guides-grid">
+            <a href="newborn.html" class="guide-card">
+                <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400&q=80') center/cover;"></div>
+                <div class="guide-card-body">
+                    <span class="guide-card-tag">원더윅스 1~2단계</span>
+                    <h3 class="guide-card-title">신생아 등센서 완벽 대처법</h3>
+                    <p class="guide-card-desc">눕히면 바로 깨서 우는 우리 아기, 왜 그럴까요? 안심하고 재우는 방법</p>
+                </div>
+            </a>
+            <a href="leap4.html" class="guide-card">
+                <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1544281692-a16972e38936?w=400&q=80') center/cover;"></div>
+                <div class="guide-card-body">
+                    <span class="guide-card-tag">원더윅스 3~4단계</span>
+                    <h3 class="guide-card-title">생후 4개월 수면퇴행 극복법</h3>
+                    <p class="guide-card-desc">통잠을 자던 아기가 갑자기 밤마다 깨서 운다면? 올바른 수면 의식 만들기</p>
+                </div>
+            </a>
+            <a href="teething.html" class="guide-card">
+                <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80') center/cover;"></div>
+                <div class="guide-card-body">
+                    <span class="guide-card-tag">원더윅스 5~6단계</span>
+                    <h3 class="guide-card-title">이앓이 겹칠 때 필수템 3가지</h3>
+                    <p class="guide-card-desc">원더윅스와 이앓이가 함께 오는 마의 구간, 부모의 수면을 지켜줄 구원템</p>
+                </div>
+            </a>
+            <a href="separation-anxiety.html" class="guide-card">
+                <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1602052793312-b99c2a92b5c7?w=400&q=80') center/cover;"></div>
+                <div class="guide-card-body">
+                    <span class="guide-card-tag">원더윅스 7~8단계</span>
+                    <h3 class="guide-card-title">껌딱지 아기, 분리불안 대처법</h3>
+                    <p class="guide-card-desc">화장실만 가도 자지러지게 우는 아기에게 안정감을 주는 대상영속성 놀이</p>
+                </div>
+            </a>
+            <a href="refusal.html" class="guide-card">
+                <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400&q=80') center/cover;"></div>
+                <div class="guide-card-body">
+                    <span class="guide-card-tag">원더윅스 9~10단계</span>
+                    <h3 class="guide-card-title">이유식 거부기 대처하는 법</h3>
+                    <p class="guide-card-desc">자기주장이 강해지고 이유식을 뱉어내는 시기, 즐거운 식사 시간을 위한 노하우</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
