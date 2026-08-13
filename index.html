@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>원더윅스 계산기 - 아기 도약기 확인</title>
+    
+    <!-- 파비콘 설정 -->
+    <link rel="icon" href="favicon.ico">
+    <!-- PWA 매니페스트 (인라인 - 별도 파일 불필요) -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"원더윅스 계산기","short_name":"원더윅스","description":"출산 예정일로 우리 아기 도약기를 확인하세요","start_url":"/","display":"standalone","theme_color":"#FFB6C1","background_color":"#FFFFFF","lang":"ko","icons":[{"src":"https://wonderweeks.enjoy-onepage.com/icon.png","sizes":"192x192","type":"image/png"},{"src":"https://wonderweeks.enjoy-onepage.com/icon.png","sizes":"512x512","type":"image/png"}]}'>
+    <meta name="theme-color" content="#FFB6C1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="원더윅스">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- 오픈그래프(OG) 메타 태그 설정 -->
+    <meta property="og:title" content="원더윅스 계산기">
+    <meta property="og:description" content="출산 예정일만 입력하면 현재 아기의 도약기 상태와 대처법을 바로 확인하실 수 있습니다.">
+    <meta property="og:image" content="https://wonderweeks.enjoy-onepage.com/og-image.png">
+    <meta property="og:url" content="https://wonderweeks.enjoy-onepage.com">
+
+    <!-- 카카오 앱키 설정 (페이지 로드 시 SDK는 클릭 시점에 동적으로 로드) -->
+    <script>const KAKAO_APP_KEY = '42e5831bfc2060c9019af7d2e6dfabe7';</script>
+
+    <style>
+        :root {
+            --primary: #FFB6C1;
+            --bg-color: #F8F9FA;
+            --text-main: #333333;
+            --text-light: #666666;
+            --box-bg: #FFFFFF;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--box-bg);
+            padding: 20px;
+            padding-bottom: 120px; /* 하단 고정 광고 가림 방지 - 충분한 여백 */
+            box-sizing: border-box;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+        .input-group {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .input-group .tooltip {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: block;
+            line-height: 1.4;
+        }
+        input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px; 
+            box-sizing: border-box;
+        }
+        .result-box {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .result-box.sunny { background-color: #E8F5E9; }
+        .result-box.stormy { background-color: #FFEBEE; }
+        
+        .status-icon { font-size: 4rem; margin-bottom: 10px; }
+        .status-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; }
+        .status-desc { color: var(--text-light); font-size: 0.95rem; line-height: 1.5; }
+
+        .progress-container {
+            background: #EEEEEE;
+            border-radius: 10px;
+            height: 10px;
+            width: 100%;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-bar {
+            background: var(--primary);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .timeline-container {
+            background: #FFFFFF;
+            border: 1px solid #EEEEEE;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .timeline-container h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        .final-date {
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #D32F2F;
+            background: #FFEBEE;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .timeline-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* 타임라인 아코디언 UI 디자인 */
+        .timeline-list li {
+            padding: 12px 8px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .timeline-header {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 4px;
+        }
+        .timeline-header-title {
+            font-size: 0.9rem;
+        }
+        .timeline-header-status {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .timeline-list li.past { background: #F5F5F5; color: #757575; }
+        .timeline-list li.current { background: #FFF9C4; font-weight: bold; color: #E65100; border-left: 4px solid #FF9800; }
+        .timeline-list li.future { background: #FAFAFA; color: #616161; border-left: 4px solid #E0E0E0; }
+        
+        .timeline-details {
+            display: none;
+            margin-top: 12px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #424242;
+            line-height: 1.6;
+            font-weight: normal;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .timeline-details p { margin: 0 0 10px 0; }
+        .timeline-details p:last-child { margin: 0; }
+        
+        .timeline-list li.active .timeline-details {
+            display: block;
+        }
+
+        .info-card {
+            background: #FFF9C4;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .info-card h3 { margin-top: 0; font-size: 1.1rem; }
+        .info-card p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn-copy { background: #333; color: #fff; }
+        .btn-kakao { background: #FEE500; color: #000; }
+
+        /* 설치 배너 */
+        .install-banner {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #E8F5E9;
+            border: 1px solid #A5D6A7;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+        .install-banner.visible { display: flex; }
+        .btn-install {
+            flex-shrink: 0;
+            padding: 8px 14px;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* 제휴 배너 스타일 */
+        .affiliate-banner {
+            margin-bottom: 20px;
+            border: 1px solid #FFCDD2;
+            border-radius: 12px;
+            background: #FFEBEE;
+            padding: 16px;
+            display: none; /* JS에서 활성화 */
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .affiliate-badge {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: #D32F2F;
+            border: 1px solid #D32F2F;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .affiliate-content {
+            flex: 1;
+        }
+        .affiliate-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.4;
+        }
+        .affiliate-content strong {
+            color: #D32F2F;
+        }
+        .affiliate-btn {
+            background: #D32F2F;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        .affiliate-btn:hover {
+            background: #B71C1C;
+        }
+
+        /* 가이드 섹션 스타일 */
+        .guides-section {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #EEEEEE;
+        }
+        .guides-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .guides-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        @media (min-width: 400px) {
+            .guides-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .guide-card {
+            background: #FFFFFF;
+            border: 1px solid #EEEEEE;
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .guide-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            border-color: var(--primary);
+        }
+        .guide-card-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            background: #F5F5F5;
+        }
+        .guide-card-body {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .guide-card-tag {
+            font-size: 0.65rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .guide-card-title {
+            font-size: 0.95rem;
+            margin: 0 0 6px 0;
+            line-height: 1.3;
+        }
+        .guide-card-desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin: 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 하단 고정 배너 광고 */
+        .sticky-ad {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            max-height: 60px;
+            overflow: hidden;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            z-index: 9999;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👶 원더윅스 계산기</h1>
+
+        <!-- PWA 설치 배너 -->
+        <div class="install-banner" id="installBanner">
+            <span>📲 홈 화면에 추가하면 앱처럼 바로 열 수 있어요!</span>
+            <button class="btn-install" id="installBtn">설치하기</button>
+        </div>
+
+        <div class="input-group">
+            <label for="dueDate">출산 예정일을 입력해주세요</label>
+            <span class="tooltip">💡 뇌 발달은 수정된 시점을 기준으로 하므로, 실제 생일이 아닌 '출산 예정일'을 기준으로 계산해야 정확합니다.</span>
+            <input type="date" id="dueDate" onchange="calculateWonderWeeks()">
+        </div>
+
+        <div id="resultBox" class="result-box">
+            <div id="statusIcon" class="status-icon">☀️</div>
+            <div id="statusTitle" class="status-title">현재는 평온한 시기입니다</div>
+            <div id="statusDesc" class="status-desc">아기가 안정적으로 성장하고 있어요.</div>
+        </div>
+
+        <div id="infoCard" class="info-card">
+            <h3 id="infoTitle">🌱 이번 도약기의 특징</h3>
+            <p><strong>발달 특징:</strong> <br><span id="infoAbilities"></span></p>
+            <p><strong>주요 행동:</strong> <br><span id="infoSymptoms"></span></p>
+            <p><strong>💡 부모 대처 팁:</strong> <br><span id="infoTips"></span></p>
+        </div>
+
+        <!-- 동적 제휴 배너 영역 -->
+        <div id="affiliateContainer" class="affiliate-banner"></div>
+        <div id="coupangDisclaimer" style="display:none; font-size: 0.7rem; color: #999; text-align: center; margin-bottom: 20px;">
+            이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="timeline-container" id="timelineContainer">
+            <h3>전체 원더윅스 진행표</h3>
+            <span class="tooltip" style="text-align:center; display:block; margin-bottom:10px;">(각 단계를 터치하면 상세 설명을 볼 수 있습니다)</span>
+            <div class="final-date" id="finalDateBox">🏁 모든 원더윅스 종료 예정일: <span id="finalEndDate"></span></div>
+            <ul class="timeline-list" id="timelineList"></ul>
+        </div>
+
+        <!-- SEO 가이드 섹션 -->
+        <section class="guides-section">
+            <h2>📚 원더윅스 생존 가이드</h2>
+            <div class="guides-grid">
+                <a href="/guides/leap4.html" class="guide-card">
+                    <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400&q=80') center/cover;"></div>
+                    <div class="guide-card-body">
+                        <span class="guide-card-tag">수면교육</span>
+                        <h3 class="guide-card-title">생후 4개월 수면퇴행 극복법</h3>
+                        <p class="guide-card-desc">밤마다 깨는 우리 아기, 백색소음기와 올바른 수면 의식으로 통잠 재우기</p>
+                    </div>
+                </a>
+                <a href="/guides/teething.html" class="guide-card">
+                    <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1544281692-a16972e38936?w=400&q=80') center/cover;"></div>
+                    <div class="guide-card-body">
+                        <span class="guide-card-tag">육아템</span>
+                        <h3 class="guide-card-title">이앓이 겹칠 때 필수템 3가지</h3>
+                        <p class="guide-card-desc">원더윅스와 이앓이가 함께 올 때 부모의 삶의 질을 높여주는 아이템들</p>
+                    </div>
+                </a>
+                <a href="/guides/separation-anxiety.html" class="guide-card">
+                    <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80') center/cover;"></div>
+                    <div class="guide-card-body">
+                        <span class="guide-card-tag">애착형성</span>
+                        <h3 class="guide-card-title">껌딱지 아기, 분리불안 대처법</h3>
+                        <p class="guide-card-desc">엄마 껌딱지가 된 아기에게 안정감을 주는 대상영속성 놀이 완벽 정리</p>
+                    </div>
+                </a>
+                <a href="/guides/refusal.html" class="guide-card">
+                    <div class="guide-card-img" style="background: url('https://images.unsplash.com/photo-1602052793312-b99c2a92b5c7?w=400&q=80') center/cover;"></div>
+                    <div class="guide-card-body">
+                        <span class="guide-card-tag">이유식</span>
+                        <h3 class="guide-card-title">이유식 거부기 대처하는 법</h3>
+                        <p class="guide-card-desc">자기주장이 강해지는 시기, 기분 좋게 식사 시간을 유도하는 노하우</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <div class="btn-group">
+            <button class="btn btn-copy" onclick="copyResult()">결과 복사하기</button>
+            <button class="btn btn-kakao" onclick="shareKakao()">카톡 공유하기</button>
+        </div>
+
+    </div>
+
+    <!-- 하단 고정 배너 광고 (수평 배너 강제, 최대 60px) -->
+    <div class="sticky-ad">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106"
+             crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block; width:100%; height:60px;"
+             data-ad-client="ca-pub-2228289204702106"
+             data-ad-slot="3824727725"
+             data-ad-format="horizontal"
+             data-full-width-responsive="false"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <script>
+        const leapData = [
+            { step: 1, start: 4, end: 5, title: '감각의 세계', symptoms: '눈물이 없는 울음을 터뜨리거나 평소보다 훨씬 자주 보채며, 잠에서 쉽게 깹니다. 보호자의 품에서 떨어지지 않으려 하는 극심한 껌딱지 증상을 보입니다.', abilities: '신진대사가 급격히 변하고 내장기관이 성숙해집니다. 시각, 청각 등의 감각이 이전보다 훨씬 예민해져 외부 환경을 완전히 새로운 세상처럼 느끼게 됩니다.', tips: '아기가 느끼는 공포감을 줄여주는 것이 핵심입니다. 자주 안아주고, 심장 소리를 들려주며, 부드러운 목소리로 끊임없이 안심시켜 주세요. 스킨십을 통한 안정감 제공이 최우선입니다.' },
+            { step: 2, start: 7, end: 9, title: '패턴의 세계', symptoms: '평소 잘 먹던 수유를 거부하거나 먹는 양이 줄어듭니다. 수면 패턴이 흐트러져 밤에 자주 깨고, 익숙하지 않은 사람이나 환경에 불안감을 드러냅니다.', abilities: '단순한 그림이나 명암에서 벗어나 주변 사물의 "패턴"을 인식하기 시작합니다. 자신의 손과 발이 몸의 일부라는 것을 깨닫고 신체를 제어하려는 시도를 합니다.', tips: '아기의 시각 발달을 돕기 위해 흑백/컬러 초점책이나 모빌 등 뚜렷한 패턴을 보여주세요. 손과 발을 만지며 놀아주는 신체 인지 놀이가 두뇌 발달에 큰 도움이 됩니다.' },
+            { step: 3, start: 11, end: 12, title: '미세한 변화의 세계', symptoms: '별다른 이유 없이 갑자기 크게 울거나 짜증을 내는 빈도가 늘어납니다. 목욕이나 기저귀 갈기 등 평소 잘 하던 일상적인 활동에도 강한 거부감을 보일 수 있습니다.', abilities: '움직임의 궤적, 목소리의 미세한 톤 변화, 방 안의 빛 밝기 변화 등 아주 작은 변화를 민감하게 인지하고 추적할 수 있는 능력이 생깁니다.', tips: '딸랑이를 천천히 움직여 시선이 따라오게 유도하거나, 목소리의 톤을 높낮이 있게 조절하며 노래를 불러주세요. 아기가 피곤해하면 즉각 자극을 줄이고 조용히 눕혀주어야 합니다.' },
+            { step: 4, start: 15, end: 19, title: '사건의 세계', symptoms: '원더윅스 중 가장 길고 험난한 시기입니다. 4개월 수면 퇴행이 겹쳐 밤새 뒤척이거나 1~2시간 간격으로 깨서 울 수 있습니다. 엄마에 대한 집착이 강해집니다.', abilities: '"원인과 결과"를 연결하는 능력이 폭발적으로 발달합니다. 물건을 떨어뜨리면 소리가 나고 엄마가 주워준다는 일련의 과정을 "사건"으로 인지하고 즐깁니다.', tips: '물건 떨어뜨리기 놀이를 짜증 내지 말고 받아주세요. 수면 퇴행기이므로 무너진 수면 패턴을 바로잡기 위해 일관된 수면 의식(목욕-마사지-자장가)을 철저히 지키는 것이 매우 중요합니다.' },
+            { step: 5, start: 23, end: 26, title: '관계의 세계', symptoms: '분리불안이 본격적으로 시작됩니다. 엄마가 화장실만 가도 대성통곡을 하며, 낯선 사람이나 장소에 대해 극도로 경계하고 겁을 냅니다.', abilities: '사물과 사물 사이의 물리적 "거리"와 "공간적 관계"(안, 밖, 위, 아래)를 이해하기 시작합니다. 자신이 엄마와 분리된 독립된 존재임을 깨닫고 거리에 대한 불안을 느낍니다.', tips: '눈에 보이지 않아도 엄마가 존재한다는 "대상 영속성"을 길러주어야 합니다. 까꿍 놀이나 숨바꼭질 놀이를 자주 해주고, 방을 나설 때는 항상 아기에게 곧 돌아온다는 말을 남겨주세요.' },
+            { step: 6, start: 34, end: 37, title: '분류의 세계', symptoms: '호불호가 강해져 싫은 것은 강하게 거부합니다. 기저귀를 갈거나 옷을 입힐 때 몸부림을 치며 거부하고, 낯가림이 절정에 달할 수 있습니다.', abilities: '세상의 수많은 사물을 공통점에 따라 "분류"하기 시작합니다. (예: 그림책의 강아지와 지나가는 강아지가 같은 "개"라는 것을 인지함). 관찰력이 비약적으로 상승합니다.', tips: '주변 사물의 이름을 반복해서 정확하게 알려주세요. "이건 빨간색 공이네", "이건 네모난 블록이네"와 같이 특징을 분류하는 언어 자극을 많이 주면 인지 발달에 큰 도움이 됩니다.' },
+            { step: 7, start: 42, end: 46, title: '순서의 세계', symptoms: '본인이 직접 하겠다는 고집이 세져 숟가락을 뺏거나 옷 입기를 거부합니다. 뜻대로 되지 않으면 소리를 지르거나 물건을 던지는 등 감정 표현이 격해집니다.', abilities: '목표를 달성하기 위해서는 일련의 "순서"가 필요하다는 것을 깨닫습니다. 블록을 차곡차곡 쌓거나, 물건을 상자에 넣고 빼는 등 순차적인 행동을 즐겨합니다.', tips: '위험하지 않은 선에서 아기가 스스로 해볼 수 있도록 충분히 기다려주고 기회를 주세요. 성공했을 때는 과장되게 칭찬해주어 성취감을 느끼게 해주는 것이 중요합니다.' },
+            { step: 8, start: 51, end: 55, title: '프로그램의 세계', symptoms: '이해할 수 없는 떼쓰기가 늘어나고, 안 된다는 말에 바닥에 드러눕는 등 반항적인 행동을 보입니다. 부모의 인내심을 테스트하는 듯한 행동을 반복합니다.', abilities: '상황에 따라 행동 방식을 바꿀 수 있는 응용력이 생깁니다. "외출할 때는 신발을 신는다"와 같은 일상적인 프로그램을 이해하고 자신이 스스로 결과를 만들어내려 합니다.', tips: '강압적인 지시보다는 "기저귀 가져올까?"와 같은 간단한 심부름을 통해 아기가 일상의 프로그램에 참여하도록 유도하세요. 떼를 쓸 때는 감정을 먼저 공감해 주되 안 되는 것은 단호하게 선을 그어야 합니다.' },
+            { step: 9, start: 60, end: 64, title: '원칙의 세계', symptoms: '부모가 정한 규칙을 교묘하게 어기려 하거나 타협을 시도합니다. "아니야!"라는 부정적인 표현이 잦아지고, 공격적인 행동(때리기, 깨물기)이 나타날 수 있습니다.', abilities: '다양한 방법으로 자신의 목표를 이룰 수 있음을 인지하고 협상과 타협을 시도합니다. 자신만의 "원칙"을 세우고 그것이 지켜지지 않으면 화를 냅니다.', tips: '이 시기에는 일관성 있는 훈육이 절대적으로 필요합니다. 부모가 기분에 따라 규칙을 바꾸면 아기는 혼란을 느낍니다. 올바른 행동 원칙을 명확하고 짧게 설명해 주세요.' },
+            { step: 10, start: 71, end: 75, title: '시스템의 세계', symptoms: '마지막 원더윅스로, 자기주장이 매우 강해집니다. 식사 거부, 수면 거부 등 통제하기 어려운 행동을 보이며 하루에도 몇 번씩 감정 기복이 심하게 나타납니다.', abilities: '자신과 가족, 환경의 거대한 "시스템"을 이해합니다. "양심"의 개념이 싹트고 언어 능력이 폭발적으로 발달하여 상황을 설명하려 노력합니다.', tips: '아이에게 두 가지 선택지를 주어 스스로 선택하게 함으로써 자율성을 존중해 주세요. "밥 안 먹어!"라고 할 때 혼내기보다 "이거 먹을래, 저거 먹을래?"로 접근하는 것이 효과적입니다.' }
+        ];
+
+        /* PWA 설치 프롬프트 */
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const banner = document.getElementById('installBanner');
+            if (banner) banner.classList.add('visible');
+        });
+        document.getElementById('installBtn')?.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            if (outcome === 'accepted') {
+                const banner = document.getElementById('installBanner');
+                if (banner) banner.classList.remove('visible');
+            }
+        });
+        window.addEventListener('appinstalled', () => {
+            const banner = document.getElementById('installBanner');
+            if (banner) banner.classList.remove('visible');
+            deferredPrompt = null;
+        });
+
+        /* 카카오 SDK 동적 로드 (스도쿠 사이트와 동일한 방식 - integrity 해시 없음) */
+        let kakaoLoaded = false;
+        function loadKakaoSDK() {
+            return new Promise((resolve, reject) => {
+                if (kakaoLoaded || window.Kakao) { kakaoLoaded = true; return resolve(); }
+                const s = document.createElement('script');
+                s.src = 'https://developers.kakao.com/sdk/js/kakao.js';
+                s.onload = () => { kakaoLoaded = true; resolve(); };
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedDate = localStorage.getItem('wonderWeeksDueDate');
+            if(savedDate) {
+                const dateInput = document.getElementById('dueDate');
+                if(dateInput) {
+                    dateInput.value = savedDate;
+                    calculateWonderWeeks();
+                }
+            }
+        });
+
+        function calculateWonderWeeks() {
+            const dateInput = document.getElementById('dueDate');
+            if(!dateInput || !dateInput.value) return;
+
+            localStorage.setItem('wonderWeeksDueDate', dateInput.value);
+
+            const dueDate = new Date(dateInput.value);
+            const today = new Date();
+            
+            const finalEndDate = new Date(dueDate.getTime() + (75 * 7 * 24 * 60 * 60 * 1000));
+            const formatFinalDate = `${finalEndDate.getFullYear()}년 ${finalEndDate.getMonth() + 1}월 ${finalEndDate.getDate()}일`;
+            
+            const diffTime = today - dueDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const currentWeek = Math.floor(diffDays / 7);
+
+            const resultBox = document.getElementById('resultBox');
+            const statusIcon = document.getElementById('statusIcon');
+            const statusTitle = document.getElementById('statusTitle');
+            const statusDesc = document.getElementById('statusDesc');
+            
+            const infoCard = document.getElementById('infoCard');
+            const infoTitle = document.getElementById('infoTitle');
+            const infoAbilities = document.getElementById('infoAbilities');
+            const infoSymptoms = document.getElementById('infoSymptoms');
+            const infoTips = document.getElementById('infoTips');
+            
+            const affiliateContainer = document.getElementById('affiliateContainer');
+            
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            
+            const timelineContainer = document.getElementById('timelineContainer');
+            const timelineList = document.getElementById('timelineList');
+            const finalEndDateElement = document.getElementById('finalEndDate');
+
+            if (finalEndDateElement) finalEndDateElement.innerText = formatFinalDate;
+
+            if (resultBox) {
+                resultBox.style.display = 'block';
+                resultBox.className = 'result-box'; 
+            }
+            if (progressContainer) progressContainer.style.display = 'block';
+            if (timelineContainer) timelineContainer.style.display = 'block';
+            if (infoCard) infoCard.style.display = 'block'; 
+
+            if (progressBar) {
+                let percent = (currentWeek / 75) * 100;
+                if(percent > 100) percent = 100;
+                if(percent < 0) percent = 0;
+                progressBar.style.width = percent + '%';
+            }
+
+            if (timelineList) {
+                timelineList.innerHTML = '';
+                leapData.forEach(leap => {
+                    const li = document.createElement('li');
+                    
+                    li.onclick = function() {
+                        this.classList.toggle('active');
+                    };
+
+                    let statusClass = '';
+                    let statusText = '';
+                    let icon = '';
+
+                    if (currentWeek > leap.end) {
+                        statusClass = 'past';
+                        statusText = '완료';
+                        icon = '✅';
+                    } else if (currentWeek >= leap.start && currentWeek <= leap.end) {
+                        statusClass = 'current';
+                        statusText = '진행 중';
+                        icon = '⛈️';
+                    } else {
+                        statusClass = 'future';
+                        statusText = '예정';
+                        icon = '⏳';
+                    }
+                    
+                    li.className = statusClass;
+                    
+                    li.innerHTML = `
+                        <div class="timeline-header">
+                            <span class="timeline-header-title">${icon} ${leap.step}단계 (${leap.title}) : ${leap.start}~${leap.end}주</span>
+                            <span class="timeline-header-status">${statusText} ▾</span>
+                        </div>
+                        <div class="timeline-details">
+                            <p><strong>발달 특징:</strong><br>${leap.abilities}</p>
+                            <p><strong>주요 행동:</strong><br>${leap.symptoms}</p>
+                            <p><strong>💡 부모 대처 팁:</strong><br>${leap.tips}</p>
+                        </div>
+                    `;
+                    timelineList.appendChild(li);
+                });
+            }
+
+            let currentLeap = leapData.find(leap => currentWeek >= leap.start && currentWeek <= leap.end);
+
+            if(currentLeap) {
+                if (resultBox) resultBox.classList.add('stormy');
+                if (statusIcon) statusIcon.innerText = '⛈️';
+                if (statusTitle) statusTitle.innerText = `현재 ${currentLeap.step}번째 원더윅스 진행 중!`;
+                if (statusDesc) statusDesc.innerText = `태어난지 ${currentWeek}주차, 아기의 뇌가 폭발적으로 성장하느라 혼란스러운 시기입니다.`;
+
+                if (infoTitle) infoTitle.innerText = `🌱 ${currentLeap.step}단계 [${currentLeap.title}] 상세 정보`;
+                if (infoAbilities) infoAbilities.innerText = currentLeap.abilities;
+                if (infoSymptoms) infoSymptoms.innerText = currentLeap.symptoms;
+                if (infoTips) infoTips.innerText = currentLeap.tips;
+
+                if (affiliateContainer) {
+                    let adText = '';
+                    let btnText = '자세히 보기';
+                    let link = '#'; 
+                    
+                    switch(currentLeap.step) {
+                        case 1:
+                        case 2:
+                            adText = '엄마 껌딱지가 된 아기를 안아줄 때 필수! 손목을 지켜주는 <strong>신생아 아기띠/슬링</strong>';
+                            break;
+                        case 3:
+                        case 4:
+                            adText = '4개월 수면퇴행기 극복 필수템! 모자란 잠을 채워주는 <strong>머미쿨쿨 & 백색소음기</strong>';
+                            break;
+                        case 5:
+                        case 6:
+                            adText = '분리불안 해소와 두뇌 발달에 좋은 <strong>애착인형 & 까꿍놀이 장난감</strong>';
+                            break;
+                        case 7:
+                        case 8:
+                            adText = '에너지가 폭발하는 시기! 층간소음 방지 및 안전을 위한 <strong>유아용 롤매트</strong>';
+                            break;
+                        case 9:
+                        case 10:
+                            adText = '자기주장이 강해진 아기를 위한 <strong>자기주도 이유식 식기 세트</strong>';
+                            break;
+                        default:
+                            adText = '지금 시기 아기 발달에 꼭 맞는 <strong>국민 육아템 기획전</strong>';
+                    }
+                    
+                    affiliateContainer.innerHTML = `
+                        <div class="affiliate-content">
+                            <span class="affiliate-badge">AD · PARTNER</span>
+                            <p>${adText}</p>
+                        </div>
+                        <a href="${link}" class="affiliate-btn" target="_blank">${btnText}</a>
+                    `;
+                    affiliateContainer.style.display = 'flex';
+                }
+            } else {
+                if (resultBox) resultBox.classList.add('sunny');
+                if (statusIcon) statusIcon.innerText = '☀️';
+                if (statusTitle) statusTitle.innerText = '현재는 평온한 안정기입니다';
+                
+                let nextLeap = leapData.find(leap => leap.start > currentWeek);
+                if(nextLeap) {
+                    let weeksLeft = nextLeap.start - currentWeek;
+                    if (statusDesc) statusDesc.innerText = `태어난지 ${currentWeek}주차. 다음 ${nextLeap.step}번째 도약기까지 약 ${weeksLeft}주 남았습니다.`;
+                    
+                    if (infoTitle) infoTitle.innerText = `☀️ 평온한 시기 및 다음 도약기 준비 가이드`;
+                    if (infoAbilities) infoAbilities.innerText = `현재 아기는 이전 도약기에서 배운 새로운 능력들을 일상에 적용하며 반복적으로 연습하고 있습니다. 뇌가 폭풍우를 지나 안정을 찾았기 때문에 정보를 스펀지처럼 흡수하는 황금기입니다.`;
+                    if (infoSymptoms) infoSymptoms.innerText = `평소보다 수유를 규칙적으로 잘 하고, 수면 패턴도 일정하게 유지되며 혼자서도 옹알이를 하며 잘 노는 모습을 보여줍니다. 부모를 향해 환하게 웃어주는 빈도가 크게 늘어납니다.`;
+                    if (infoTips) infoTips.innerText = `아이와 눈을 맞추고 반응해 주는 놀이를 최대한 많이 해주세요. 긍정적인 애착이 가장 잘 형성되는 시기입니다. 또한, 약 ${weeksLeft}주 뒤에 시작될 다음 도약기(${nextLeap.title})에 대비해 부모님도 밀린 휴식을 취하고 체력을 비축해 두는 것이 좋습니다.`;
+                } else {
+                    if (statusDesc) statusDesc.innerText = `태어난지 ${currentWeek}주차. 축하합니다! 모든 주요 도약기를 무사히 마쳤습니다.`;
+                    
+                    if (infoTitle) infoTitle.innerText = `🎉 10번의 원더윅스 졸업`;
+                    if (infoAbilities) infoAbilities.innerText = `아기는 이제 자신과 세상을 통제할 수 있는 독립적인 사고 체계를 갖추었습니다.`;
+                    if (infoSymptoms) infoSymptoms.innerText = `앞으로는 정해진 원더윅스 주수보다는 아기 고유의 기질과 환경에 따라 발달 양상이 다르게 나타납니다.`;
+                    if (infoTips) infoTips.innerText = `그동안 정말 고생 많으셨습니다. 이제 훌쩍 자란 아이와 함께 새로운 육아의 여정을 즐겨주세요!`;
+                }
+
+                if (affiliateContainer) {
+                    affiliateContainer.innerHTML = `
+                        <div class="affiliate-content">
+                            <span class="affiliate-badge">AD · PARTNER</span>
+                            <p>평온한 황금기, 아기의 인지 발달을 촉진시키는 <strong>국민 전집 & 초점책 세트</strong></p>
+                        </div>
+                        <a href="#" class="affiliate-btn" target="_blank">자세히 보기</a>
+                    `;
+                    affiliateContainer.style.display = 'flex';
+                }
+            }
+        }
+
+        function copyResult() {
+            const statusTitle = document.getElementById('statusTitle');
+            const statusDesc = document.getElementById('statusDesc');
+            
+            const title = statusTitle ? statusTitle.innerText : '';
+            const desc = statusDesc ? statusDesc.innerText : '';
+            const url = 'https://wonderweeks.enjoy-onepage.com';
+            
+            const textToCopy = `${title}\n${desc}\n\n우리아기 전체 원더윅스 타임라인 확인하기:\n${url}`;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("결과가 복사되었습니다. 맘카페나 단톡방에 공유해보세요!");
+            }).catch(err => {
+                alert("복사에 실패했습니다. 브라우저 설정을 확인해주세요.");
+            });
+        }
+
+        async function shareKakao() {
+            const statusTitle = document.getElementById('statusTitle');
+            const statusDesc = document.getElementById('statusDesc');
+            
+            const title = statusTitle ? statusTitle.innerText : '';
+            const desc = statusDesc ? statusDesc.innerText : '';
+
+            const siteUrl = 'https://wonderweeks.enjoy-onepage.com';
+            const imageUrl = 'https://wonderweeks.enjoy-onepage.com/og-image.png';
+
+            try {
+                await loadKakaoSDK();
+                if (!window.Kakao) throw new Error('Kakao SDK 로드 실패');
+                if (!Kakao.isInitialized()) {
+                    Kakao.init(KAKAO_APP_KEY);
+                }
+                Kakao.Share.sendDefault({
+                    objectType: 'feed',
+                    content: {
+                        title: '우리아기 원더윅스 확인결과 👶',
+                        description: `${title}\n${desc}`,
+                        imageUrl: imageUrl,
+                        link: {
+                            mobileWebUrl: siteUrl,
+                            webUrl: siteUrl,
+                        },
+                    },
+                    buttons: [
+                        {
+                            title: '우리 아기 주수 및 타임라인 확인',
+                            link: {
+                                mobileWebUrl: siteUrl,
+                                webUrl: siteUrl,
+                            },
+                        },
+                    ],
+                });
+            } catch (e) {
+                console.error('카카오 공유 오류:', e);
+                alert('카카오 공유에 실패했습니다. 링크 복사 버튼을 이용해 주세요.');
+            }
+        }
+    </script>
+</body>
+</html>
