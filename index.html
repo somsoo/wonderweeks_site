@@ -160,7 +160,7 @@
         .timeline-container {
             background: #FFFFFF;
             border: 1px solid #EEEEEE;
-            padding: 20px;
+            padding: 15px 10px; /* 좌우 여백을 줄여 넓게 사용 */
             border-radius: 12px;
             margin-bottom: 20px;
             display: none;
@@ -318,8 +318,10 @@
             background: #FFEBEE;
             padding: 16px;
             display: none; /* JS에서 활성화 */
+            flex-direction: column; /* 텍스트 폭 확보를 위해 위아래로 분리 */
             align-items: center;
-            gap: 15px;
+            text-align: center;
+            gap: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
         .affiliate-badge {
@@ -445,6 +447,8 @@
             border-top: 1px solid #e0e0e0;
             z-index: 9999;
             text-align: center;
+            transform: translateZ(0); /* 모바일 브라우저 스크롤 시 사라짐 현상 방지 */
+            -webkit-transform: translateZ(0);
         }
 
         .dynamic-guide-banner {
@@ -468,7 +472,8 @@
         }
         .dynamic-guide-icon {
             font-size: 2rem;
-            margin-right: 15px;
+            margin-bottom: 10px; /* 기존 margin-right 15px에서 상하 배치로 변경 */
+            text-align: center;
         }
         .dynamic-guide-text h4 {
             margin: 0 0 5px 0;
@@ -785,7 +790,7 @@
                 const dynamicGuide = document.getElementById('dynamicGuideContainer');
                 if(dynamicGuide && guideLink) {
                     dynamicGuide.innerHTML = `
-                        <div style="display:flex; align-items:center;">
+                        <div style="display:flex; flex-direction:column; align-items:center;">
                             <div class="dynamic-guide-icon">${guideIcon}</div>
                             <div class="dynamic-guide-text">
                                 <h4>👉 [맞춤형 가이드] ${guideTitle}</h4>
@@ -825,7 +830,7 @@
                 const dynamicGuide = document.getElementById('dynamicGuideContainer');
                 if(dynamicGuide) {
                     dynamicGuide.innerHTML = `
-                        <div style="display:flex; align-items:center;">
+                        <div style="display:flex; flex-direction:column; align-items:center;">
                             <div class="dynamic-guide-icon">☀️</div>
                             <div class="dynamic-guide-text">
                                 <h4>👉 [맞춤형 가이드] 뇌 발달 황금기 활용법</h4>
