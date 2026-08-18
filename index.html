@@ -23,9 +23,6 @@
     <meta property="og:image" content="https://wonderweeksportal.enjoy-onepage.com/og-image.png">
     <meta property="og:url" content="https://wonderweeksportal.enjoy-onepage.com/">
 
-    <!-- Google AdSense (Auto Ads) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
-
     <!-- JSON-LD 스키마 마크업 -->
     <script type="application/ld+json">
     [{
@@ -521,6 +518,21 @@
             </div>
         </a>
 
+        <!-- 메인 수동 배너 광고 1 (가장 높은 노출도: 원더윅스_메인_결과하단) -->
+        <div class="manual-ad-box" style="width: 100%; min-height: 100px; margin-top: 20px; overflow: hidden; background: #fff; text-align: center; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 10px; box-sizing: border-box;">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
+            <!-- 원더윅스_메인_결과하단 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2228289204702106"
+                 data-ad-slot="3824727725"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
         <div class="progress-container" id="progressContainer">
             <div class="progress-bar" id="progressBar"></div>
         </div>
@@ -536,8 +548,23 @@
 
         <!-- SEO 가이드 섹션 -->
         <section class="guides-section" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-            <a href="guides/index.html" class="btn" style="background-color: var(--primary); padding: 15px 25px; border-radius: 30px; display: inline-block; width: 100%; font-size: 1.1rem; text-decoration: none; color: #333; box-sizing: border-box; margin-bottom: 10px; line-height: 1.4;">📚 원더윅스 생존 가이드<br>전체 보기</a>
+            <a href="guides/index.html" class="btn" style="background-color: var(--primary); padding: 15px 25px; border-radius: 30px; display: inline-block; width: 100%; font-size: 1.1rem; text-decoration: none; color: #333; box-sizing: border-box; margin-bottom: 10px; line-height: 1.4;">📚 원더윅스 생존 가이드 전체 보기</a>
         </section>
+
+        <!-- 메인 수동 배너 광고 2 (타임라인 종료 후 하단: 원더윅스_메인_맨밑하단) -->
+        <div class="manual-ad-box" style="width: 100%; min-height: 100px; margin-top: 20px; overflow: hidden; background: #fff; text-align: center; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 10px; box-sizing: border-box;">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
+            <!-- 원더윅스_메인_맨밑하단 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2228289204702106"
+                 data-ad-slot="3416334507"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
         <!-- FAQ 섹션 (SEO 텍스트 확보용) -->
         <section class="faq-section" style="margin-top: 40px; text-align: left;">
@@ -694,6 +721,11 @@
                     let statusText = '';
                     let icon = '';
 
+                    const leapStartDate = new Date(dueDate.getTime() + (leap.start * 7 * 24 * 60 * 60 * 1000));
+                    const leapEndDate = new Date(dueDate.getTime() + (leap.end * 7 * 24 * 60 * 60 * 1000));
+                    const formatStartDate = `${leapStartDate.getFullYear()}.${String(leapStartDate.getMonth() + 1).padStart(2, '0')}.${String(leapStartDate.getDate()).padStart(2, '0')}`;
+                    const formatEndDate = `${leapEndDate.getFullYear()}.${String(leapEndDate.getMonth() + 1).padStart(2, '0')}.${String(leapEndDate.getDate()).padStart(2, '0')}`;
+
                     if (currentWeek > leap.end) {
                         statusClass = 'past';
                         statusText = '완료';
@@ -712,7 +744,10 @@
                     
                     li.innerHTML = `
                         <div class="timeline-header">
-                            <span class="timeline-header-title">${icon} ${leap.step}단계 (${leap.title}) : ${leap.start}~${leap.end}주</span>
+                            <span class="timeline-header-title">
+                                ${icon} ${leap.step}단계 (${leap.title}) : ${leap.start}~${leap.end}주<br>
+                                <span style="font-size: 0.85rem; color: #666; font-weight: normal; margin-top: 4px; display: inline-block;">📅 ${formatStartDate} ~ ${formatEndDate}</span>
+                            </span>
                             <div class="timeline-header-status">
                                 <span class="status-badge ${statusClass}">${statusText}</span>
                                 <span class="click-hint">자세히 보기 ▾</span>
