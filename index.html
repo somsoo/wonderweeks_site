@@ -83,14 +83,34 @@
         }
         .container {
             margin: 0 auto;
-            max-width: 500px;
+            max-width: 980px;
             width: 100%;
             min-height: 100vh;
             background-color: var(--box-bg);
             padding: 20px;
             padding-bottom: 40px; 
             box-sizing: border-box;
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+        .wonder-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .wonder-grid {
+                display: grid;
+                grid-template-columns: 5fr 7fr;
+                gap: 28px;
+                align-items: start;
+            }
+            .wonder-left {
+                position: sticky;
+                top: 20px;
+            }
+            .wonder-right {
+                min-width: 0;
+            }
         }
         h1 {
             text-align: center;
@@ -485,64 +505,77 @@
             <button class="btn-install" id="installBtn">설치하기</button>
         </div>
 
-        <div class="input-group">
-            <label for="dueDate">출산 예정일을 입력해주세요</label>
-            <span class="tooltip">💡 뇌 발달은 수정된 시점을 기준으로 하므로, 실제 생일이 아닌 '출산 예정일'을 기준으로 계산해야 정확합니다.</span>
-            <input type="date" id="dueDate" onchange="calculateWonderWeeks()">
-        </div>
+        <div class="wonder-grid">
+            <!-- Left Column: Input, Status, Tips & Primary Action -->
+            <div class="wonder-left">
+                <div class="input-group">
+                    <label for="dueDate">출산 예정일을 입력해주세요</label>
+                    <span class="tooltip">💡 뇌 발달은 수정된 시점을 기준으로 하므로, 실제 생일이 아닌 '출산 예정일'을 기준으로 계산해야 정확합니다.</span>
+                    <input type="date" id="dueDate" onchange="calculateWonderWeeks()">
+                </div>
 
-        <div id="resultBox" class="result-box">
-            <div id="statusIcon" class="status-icon">☀️</div>
-            <div id="statusTitle" class="status-title">현재는 평온한 시기입니다</div>
-            <div id="statusDesc" class="status-desc">아기가 안정적으로 성장하고 있어요.</div>
-        </div>
+                <div id="resultBox" class="result-box">
+                    <div id="statusIcon" class="status-icon">☀️</div>
+                    <div id="statusTitle" class="status-title">현재는 평온한 시기입니다</div>
+                    <div id="statusDesc" class="status-desc">아기가 안정적으로 성장하고 있어요.</div>
+                </div>
 
-        <div id="infoCard" class="info-card">
-            <h3 id="infoTitle">🌱 이번 도약기의 특징</h3>
-            <p><strong>발달 특징:</strong> <br><span id="infoAbilities"></span></p>
-            <p><strong>주요 행동:</strong> <br><span id="infoSymptoms"></span></p>
-            <p><strong>💡 부모 대처 팁:</strong> <br><span id="infoTips"></span></p>
-        </div>
+                <div id="infoCard" class="info-card">
+                    <h3 id="infoTitle">🌱 이번 도약기의 특징</h3>
+                    <p><strong>발달 특징:</strong> <br><span id="infoAbilities"></span></p>
+                    <p><strong>주요 행동:</strong> <br><span id="infoSymptoms"></span></p>
+                    <p><strong>💡 부모 대처 팁:</strong> <br><span id="infoTips"></span></p>
+                </div>
 
-        <!-- 동적 추천 가이드 영역 -->
-        <a id="dynamicGuideContainer" class="dynamic-guide-banner" style="display:none;" href="#"></a>
+                <div class="btn-group">
+                    <button class="btn btn-copy" onclick="copyResult()">링크 복사하기</button>
+                    <button class="btn btn-share" onclick="shareResult()">결과 공유하기</button>
+                </div>
 
-        <!-- 메인 페이지 핫딜 배너 (수익화 창구) -->
-        <a id="mainAdBanner" class="affiliate-banner" style="display:none; text-decoration:none; color:inherit; margin-top:20px;" href="https://link.coupang.com/a/gbCYWAG81A" target="_blank">
-            <div style="font-size: 2rem;">📦</div>
-            <div class="affiliate-content">
-                <span class="affiliate-badge">육아 핫딜 기획전</span>
-                <p><strong>[쿠팡] 육아 필수템 기저귀/분유 로켓 특가전!</strong><br>내일 당장 필요한 육아템 보러가기 ✨</p>
-                <div style="font-size: 0.7rem; color: #999; margin-top: 5px;">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
+                <!-- 동적 추천 가이드 영역 -->
+                <a id="dynamicGuideContainer" class="dynamic-guide-banner" style="display:none;" href="#"></a>
+
+                <!-- 메인 페이지 핫딜 배너 (수익화 창구) -->
+                <a id="mainAdBanner" class="affiliate-banner" style="display:none; text-decoration:none; color:inherit; margin-top:20px;" href="https://link.coupang.com/a/gbCYWAG81A" target="_blank">
+                    <div style="font-size: 2rem;">📦</div>
+                    <div class="affiliate-content">
+                        <span class="affiliate-badge">육아 핫딜 기획전</span>
+                        <p><strong>[쿠팡] 육아 필수템 기저귀/분유 로켓 특가전!</strong><br>내일 당장 필요한 육아템 보러가기 ✨</p>
+                        <div style="font-size: 0.7rem; color: #999; margin-top: 5px;">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
+                    </div>
+                </a>
+
+                <!-- 메인 수동 배너 광고 1 (가장 높은 노출도: 원더윅스_메인_결과하단) -->
+                <div class="manual-ad-box" style="width: 100%; margin-top: 20px; overflow: hidden; text-align: center;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
+                    <!-- 원더윅스_메인_결과하단 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2228289204702106"
+                         data-ad-slot="3824727725"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
             </div>
-        </a>
 
-        <!-- 메인 수동 배너 광고 1 (가장 높은 노출도: 원더윅스_메인_결과하단) -->
-        <div class="manual-ad-box" style="width: 100%; margin-top: 20px; overflow: hidden; text-align: center;">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
-            <!-- 원더윅스_메인_결과하단 -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-2228289204702106"
-                 data-ad-slot="3824727725"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+            <!-- Right Column: Progress & Full Timeline Schedule -->
+            <div class="wonder-right">
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
 
-        <div class="progress-container" id="progressContainer">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-
-        <div class="timeline-container" id="timelineContainer">
-            <h3>전체 원더윅스 진행표</h3>
-            <div class="final-date" id="finalDateBox">
-                🏁 모든 원더윅스 종료 예정일<br>
-                <span id="finalEndDate" style="display:block; margin-top:5px; font-size:1.1rem; color:#D32F2F;"></span>
+                <div class="timeline-container" id="timelineContainer">
+                    <h3>전체 원더윅스 진행표</h3>
+                    <div class="final-date" id="finalDateBox">
+                        🏁 모든 원더윅스 종료 예정일<br>
+                        <span id="finalEndDate" style="display:block; margin-top:5px; font-size:1.1rem; color:#D32F2F;"></span>
+                    </div>
+                    <ul class="timeline-list" id="timelineList"></ul>
+                </div>
             </div>
-            <ul class="timeline-list" id="timelineList"></ul>
         </div>
 
         <!-- SEO 가이드 섹션 -->
@@ -586,10 +619,7 @@
         </section>
 
 
-        <div class="btn-group">
-            <button class="btn btn-copy" onclick="copyResult()">링크 복사하기</button>
-            <button class="btn btn-share" onclick="shareResult()">결과 공유하기</button>
-        </div>
+
 
         <footer style="margin-top: 40px; padding: 25px 0; border-top: 1px solid #FFE3E5; text-align: center; font-size: 0.82rem; color: #888; line-height: 1.6;">
             <p style="margin: 0 0 6px;">원더윅스 계산기는 아기의 건강한 성장과 부모님의 육아를 진심으로 응원합니다.</p>
