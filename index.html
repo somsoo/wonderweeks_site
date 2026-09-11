@@ -64,8 +64,6 @@
     </script>
 
 
-    <!-- 카카오 앱키 설정 (페이지 로드 시 SDK는 클릭 시점에 동적으로 로드) -->
-    <script>const KAKAO_APP_KEY = '42e5831bfc2060c9019af7d2e6dfabe7';</script>
 
     <style>
         :root {
@@ -279,10 +277,10 @@
             cursor: pointer;
             text-align: center;
         }
-        .btn-copy { background: #333; color: #fff; }
-        .btn-kakao { background: #FEE500; color: #000; }
-        .btn-kakao:hover {
-            background-color: #e6c800;
+        .btn-copy { background: #555; color: #fff; }
+        .btn-share { background: #FF7B89; color: #fff; }
+        .btn-share:hover {
+            background-color: #e06674;
         }
 
         /* 설치 배너 */
@@ -588,9 +586,17 @@
 
 
         <div class="btn-group">
-            <button class="btn btn-copy" onclick="copyResult()">결과 복사하기</button>
-            <button class="btn btn-kakao" onclick="shareKakao()">카톡 공유하기</button>
+            <button class="btn btn-copy" onclick="copyResult()">링크 복사하기</button>
+            <button class="btn btn-share" onclick="shareResult()">결과 공유하기</button>
         </div>
+
+        <footer style="margin-top: 40px; padding: 25px 0; border-top: 1px solid #FFE3E5; text-align: center; font-size: 0.82rem; color: #888; line-height: 1.6;">
+            <p style="margin: 0 0 6px;">원더윅스 계산기는 아기의 건강한 성장과 부모님의 육아를 진심으로 응원합니다.</p>
+            <p style="margin: 0;">
+                <a href="privacy.html" style="color: #666; text-decoration: underline; font-weight: bold;">개인정보처리방침</a> &nbsp;|&nbsp; 
+                <a href="guides/index.html" style="color: #666; text-decoration: underline;">도약기 가이드 전체보기</a>
+            </p>
+        </footer>
     </div>
 
     <script>
@@ -631,25 +637,15 @@
             deferredPrompt = null;
         });
 
-        /* 카카오 SDK 동적 로드 (스도쿠 사이트와 동일한 방식 - integrity 해시 없음) */
-        let kakaoLoaded = false;
-        function loadKakaoSDK() {
-            return new Promise((resolve, reject) => {
-                if (kakaoLoaded || window.Kakao) { kakaoLoaded = true; return resolve(); }
-                const s = document.createElement('script');
-                s.src = 'https://developers.kakao.com/sdk/js/kakao.js';
-                s.onload = () => { kakaoLoaded = true; resolve(); };
-                s.onerror = reject;
-                document.head.appendChild(s);
-            });
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const dueParam = urlParams.get('due');
             const savedDate = localStorage.getItem('wonderWeeksDueDate');
-            if(savedDate) {
+            const targetDate = dueParam || savedDate;
+            if(targetDate) {
                 const dateInput = document.getElementById('dueDate');
                 if(dateInput) {
-                    dateInput.value = savedDate;
+                    dateInput.value = targetDate;
                     calculateWonderWeeks();
                 }
             }
@@ -856,63 +852,47 @@
             }
         }
 
+        function getShareUrl() {
+            const dueDateVal = document.getElementById('dueDate').value;
+            const base = 'https://wonderweeksportal.enjoy-onepage.com/';
+            return dueDateVal ? `${base}?due=${dueDateVal}` : base;
+        }
+
         function copyResult() {
             const statusTitle = document.getElementById('statusTitle');
             const statusDesc = document.getElementById('statusDesc');
-            
-            const title = statusTitle ? statusTitle.innerText : '';
+            const title = statusTitle ? statusTitle.innerText : '우리 아기 원더윅스';
             const desc = statusDesc ? statusDesc.innerText : '';
-            const url = 'https://wonderweeksportal.enjoy-onepage.com';
+            const shareUrl = getShareUrl();
             
-            const textToCopy = `${title}\n${desc}\n\n우리아기 전체 원더윅스 타임라인 확인하기:\n${url}`;
+            const textToCopy = `[원더윅스 계산기]\n${title}\n${desc}\n\n우리 아기 발달 타임라인 확인하기:\n${shareUrl}`;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("결과가 복사되었습니다. 맘카페나 단톡방에 공유해보세요!");
-            }).catch(err => {
-                alert("복사에 실패했습니다. 브라우저 설정을 확인해주세요.");
+                alert("계산 결과 링크가 복사되었습니다! 맘카페나 단톡방에 공유해보세요.");
+            }).catch(() => {
+                alert("복사에 실패했습니다. 브라우저 주소창의 링크를 복사해주세요.");
             });
         }
 
-        async function shareKakao() {
+        async function shareResult() {
             const statusTitle = document.getElementById('statusTitle');
             const statusDesc = document.getElementById('statusDesc');
-            
-            const title = statusTitle ? statusTitle.innerText : '';
+            const title = statusTitle ? statusTitle.innerText : '우리 아기 원더윅스';
             const desc = statusDesc ? statusDesc.innerText : '';
+            const shareUrl = getShareUrl();
 
-            const siteUrl = 'https://wonderweeksportal.enjoy-onepage.com';
-            const imageUrl = 'https://wonderweeksportal.enjoy-onepage.com/og-image.png';
-
-            try {
-                await loadKakaoSDK();
-                if (!window.Kakao) throw new Error('Kakao SDK 로드 실패');
-                if (!Kakao.isInitialized()) {
-                    Kakao.init(KAKAO_APP_KEY);
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: '우리 아기 원더윅스 계산 결과 👶',
+                        text: `[원더윅스 계산기]\n${title}\n${desc}`,
+                        url: shareUrl
+                    });
+                } catch (err) {
+                    if (err.name !== 'AbortError') copyResult();
                 }
-                Kakao.Share.sendDefault({
-                    objectType: 'feed',
-                    content: {
-                        title: '우리아기 원더윅스 확인결과 👶',
-                        description: `${title}\n${desc}`,
-                        imageUrl: imageUrl,
-                        link: {
-                            mobileWebUrl: siteUrl,
-                            webUrl: siteUrl,
-                        },
-                    },
-                    buttons: [
-                        {
-                            title: '우리 아기 주수 및 타임라인 확인',
-                            link: {
-                                mobileWebUrl: siteUrl,
-                                webUrl: siteUrl,
-                            },
-                        },
-                    ],
-                });
-            } catch (e) {
-                console.error('카카오 공유 오류:', e);
-                alert('카카오 공유에 실패했습니다. 링크 복사 버튼을 이용해 주세요.');
+            } else {
+                copyResult();
             }
         }
     </script>
