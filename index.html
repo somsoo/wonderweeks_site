@@ -331,19 +331,7 @@
         }
 
         /* 제휴 배너 스타일 */
-        .affiliate-banner {
-            margin-bottom: 20px;
-            border: 1px solid #FFCDD2;
-            border-radius: 12px;
-            background: #FFEBEE;
-            padding: 16px;
-            display: none; /* JS에서 활성화 */
-            flex-direction: column; /* 텍스트 폭 확보를 위해 위아래로 분리 */
-            align-items: center;
-            text-align: center;
-            gap: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
+        
         .affiliate-badge {
             font-size: 0.65rem;
             letter-spacing: 0.1em;
@@ -552,14 +540,7 @@
                 <a id="dynamicGuideContainer" class="dynamic-guide-banner" style="display:none;" href="#"></a>
 
                 <!-- 메인 페이지 핫딜 배너 (수익화 창구) -->
-                <a id="mainAdBanner" class="affiliate-banner" style="display:none; text-decoration:none; color:inherit; margin-top:20px;" href="https://link.coupang.com/a/gbCYWAG81A" target="_blank">
-                    <div style="font-size: 2rem;">📦</div>
-                    <div class="affiliate-content">
-                        <span class="affiliate-badge">육아 핫딜 기획전</span>
-                        <p><strong>[쿠팡] 육아 필수템 기저귀/분유 로켓 특가전!</strong><br>내일 당장 필요한 육아템 보러가기 ✨</p>
-                        <div style="font-size: 0.7rem; color: #999; margin-top: 5px;">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
-                    </div>
-                </a>
+                
 
                 <!-- 메인 수동 배너 광고 1 (가장 높은 노출도: 원더윅스_메인_결과하단) -->
                 <div class="manual-ad-box" style="width: 100%; margin-top: 20px; overflow: hidden; text-align: center;">
@@ -731,7 +712,7 @@
             const timelineContainer = document.getElementById('timelineContainer');
             const timelineList = document.getElementById('timelineList');
             const finalEndDateElement = document.getElementById('finalEndDate');
-            const mainAdBanner = document.getElementById('mainAdBanner');
+            
 
             if (finalEndDateElement) finalEndDateElement.innerText = formatFinalDate;
 
@@ -742,7 +723,7 @@
             if (progressContainer) progressContainer.style.display = 'block';
             if (timelineContainer) timelineContainer.style.display = 'block';
             if (infoCard) infoCard.style.display = 'block'; 
-            if (mainAdBanner) mainAdBanner.style.display = 'flex';
+            
 
             if (progressBar) {
                 let percent = (currentWeek / 75) * 100;
