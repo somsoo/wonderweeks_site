@@ -665,33 +665,46 @@
             deferredPrompt = null;
         });
 
+        function isValidYMD(str) {
+            if (!str || typeof str !== 'string') return false;
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(str)) return false;
+            const d = new Date(str);
+            return !isNaN(d.getTime());
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
             const dueParam = urlParams.get('due');
             const savedDate = localStorage.getItem('wonderWeeksDueDate');
             const targetDate = dueParam || savedDate;
-            if(targetDate) {
+            if (targetDate && isValidYMD(targetDate)) {
                 const dateInput = document.getElementById('dueDate');
-                if(dateInput) {
+                if (dateInput) {
                     dateInput.value = targetDate;
                     calculateWonderWeeks();
                 }
+            } else if (savedDate && !isValidYMD(savedDate)) {
+                localStorage.removeItem('wonderWeeksDueDate');
             }
         });
 
         function calculateWonderWeeks() {
             const dateInput = document.getElementById('dueDate');
-            if(!dateInput || !dateInput.value) return;
+            if (!dateInput || !dateInput.value || !isValidYMD(dateInput.value)) {
+                return;
+            }
 
             localStorage.setItem('wonderWeeksDueDate', dateInput.value);
 
             const dueDate = new Date(dateInput.value);
             const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const dueMidnight = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate());
             
-            const finalEndDate = new Date(dueDate.getTime() + (75 * 7 * 24 * 60 * 60 * 1000));
+            const finalEndDate = new Date(dueMidnight.getTime() + (75 * 7 * 24 * 60 * 60 * 1000));
             const formatFinalDate = `${finalEndDate.getFullYear()}년 ${finalEndDate.getMonth() + 1}월 ${finalEndDate.getDate()}일`;
             
-            const diffTime = today - dueDate;
+            const diffTime = today - dueMidnight;
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             const currentWeek = Math.floor(diffDays / 7);
 
@@ -785,6 +798,22 @@
                     `;
                     timelineList.appendChild(li);
                 });
+            }
+
+            if (diffDays < 0) {
+                const daysUntilDue = Math.abs(diffDays);
+                if (resultBox) {
+                    resultBox.className = 'result-box sunny';
+                }
+                if (statusIcon) statusIcon.innerText = '🤰';
+                if (statusTitle) statusTitle.innerText = `출산 예정 D-${daysUntilDue}`;
+                if (statusDesc) statusDesc.innerText = `아직 아기가 태어나기 전입니다 (출산 예정 D-${daysUntilDue}). 소중한 아기와의 첫 만남을 응원합니다! 출산 후 원더윅스 여정이 시작됩니다.`;
+
+                if (infoTitle) infoTitle.innerText = `🌱 임신 & 출산 준비 기간`;
+                if (infoAbilities) infoAbilities.innerText = '아기가 세상에 나오기 전, 엄마와 아빠의 따뜻한 교감과 휴식이 가장 중요한 시기입니다. 출산 가방과 신생아 침구를 미리 점검해 보세요.';
+                if (infoSymptoms) infoSymptoms.innerText = '출산 후 약 4~5주차부터 아기의 첫 번째 도약기(오감의 도약)가 시작됩니다.';
+                if (infoTips) infoTips.innerText = '첫 번째 도약기에는 울음이 늘고 자주 보챌 수 있으니, 지금 충분한 수면과 휴식을 취해두세요!';
+                return;
             }
 
             let currentLeap = leapData.find(leap => currentWeek >= leap.start && currentWeek <= leap.end);
