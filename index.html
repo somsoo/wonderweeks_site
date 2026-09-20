@@ -560,7 +560,7 @@
 <!-- PWA 설치 배너 -->
 <div class="install-banner" id="installBanner">
 <span>📲 홈 화면에 추가하면 앱처럼 바로 열 수 있어요!</span>
-<button class="btn-install" id="installBtn">설치하기</button>
+<button class="btn-install whitespace-nowrap" id="installBtn">설치하기</button>
 </div>
 <div class="wonder-grid">
 <!-- Left Column: Input, Status, Tips & Primary Action -->
@@ -582,8 +582,8 @@
 <p><strong>💡 부모 대처 팁:</strong> <br/><span id="infoTips"></span></p>
 </div>
 <div class="btn-group">
-<button class="btn btn-copy" onclick="copyResult()">링크 복사하기</button>
-<button class="btn btn-share" onclick="shareResult()">결과 공유하기</button>
+<button class="btn btn-copy whitespace-nowrap" onclick="copyResult()">링크 복사하기</button>
+<button class="btn btn-share whitespace-nowrap" onclick="shareResult()">결과 공유하기</button>
 </div>
 <!-- 동적 추천 가이드 영역 -->
 <a class="dynamic-guide-banner" href="#" id="dynamicGuideContainer" style="display:none;"></a>
@@ -1174,5 +1174,38 @@
       document.body.removeChild(ta);
     }
   </script>
+
+    <!-- E-E-A-T FAQ Section (16-5 헌법 준수) -->
+    <section class="mt-8 mb-8 space-y-3">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">자주 묻는 질문 (FAQ)</h2>
+      <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 group">
+        <summary class="font-bold text-gray-800 cursor-pointer list-none flex justify-between items-center">
+          <span>입력한 데이터가 외부 서버에 저장되나요?</span>
+          <span class="text-blue-600 group-open:rotate-180 transition transform">▼</span>
+        </summary>
+        <p class="mt-3 text-gray-600 text-xs leading-relaxed">
+          아닙니다. 100% 사용자의 기기 브라우저 메모리 내에서만 연산되며, 어떠한 금융/개인 데이터도 외부로 전송되지 않습니다.
+        </p>
+      </details>
+      <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 group">
+        <summary class="font-bold text-gray-800 cursor-pointer list-none flex justify-between items-center">
+          <span>2026년 최신 공식 기준이 반영되어 있나요?</span>
+          <summary class="text-blue-600 group-open:rotate-180 transition transform"></summary>
+        </summary>
+        <p class="mt-3 text-gray-600 text-xs leading-relaxed">
+          네, 최신 고시된 법령 및 공공 기준 요율을 상수로 반영하여 정확한 산출 결과를 제공합니다.
+        </p>
+      </details>
+      <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 group">
+        <summary class="font-bold text-gray-800 cursor-pointer list-none flex justify-between items-center">
+          <span>결과를 다른 사람이나 카카오톡으로 공유할 수 있나요?</span>
+          <span class="text-blue-600 group-open:rotate-180 transition transform">▼</span>
+        </summary>
+        <p class="mt-3 text-gray-600 text-xs leading-relaxed">
+          '결과 복사하기' 버튼을 누르면 정돈된 요약 텍스트와 바로가기 주소가 클립보드에 자동 복사됩니다.
+        </p>
+      </details>
+    </section>
+
 </body>
 </html>
