@@ -560,11 +560,11 @@
 <!-- PWA 설치 배너 -->
 <div class="install-banner" id="installBanner">
 <span>📲 홈 화면에 추가하면 앱처럼 바로 열 수 있어요!</span>
-<button class="btn-install whitespace-nowrap" id="installBtn">설치하기</button>
+<button class="btn-install whitespace-nowrap py-3 min-h-[44px]" id="installBtn">설치하기</button>
 </div>
-<div class="wonder-grid">
+<div class="wonder-grid grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 <!-- Left Column: Input, Status, Tips & Primary Action -->
-<div class="wonder-left">
+<div class="wonder-left lg:col-span-5 w-full">
 <div class="input-group">
 <label for="dueDate">출산 예정일을 입력해주세요</label>
 <span class="tooltip">💡 뇌 발달은 수정된 시점을 기준으로 하므로, 실제 생일이 아닌 '출산 예정일'을 기준으로 계산해야 정확합니다.</span>
@@ -581,16 +581,16 @@
 <p><strong>주요 행동:</strong> <br/><span id="infoSymptoms"></span></p>
 <p><strong>💡 부모 대처 팁:</strong> <br/><span id="infoTips"></span></p>
 </div>
-<div class="btn-group">
-<button class="btn btn-copy whitespace-nowrap" onclick="copyResult()">링크 복사하기</button>
-<button class="btn btn-share whitespace-nowrap" onclick="shareResult()">결과 공유하기</button>
+<div class="btn-group py-3 min-h-[44px]">
+<button class="btn btn-copy whitespace-nowrap py-3 min-h-[44px]" onclick="copyResult()">링크 복사하기</button>
+<button class="btn btn-share whitespace-nowrap py-3 min-h-[44px]" onclick="shareResult()">결과 공유하기</button>
 </div>
 <!-- 동적 추천 가이드 영역 -->
 <a class="dynamic-guide-banner" href="#" id="dynamicGuideContainer" style="display:none;"></a>
 <!-- 메인 페이지 핫딜 배너 (수익화 창구) -->
 </div>
 <!-- Right Column: Progress & Full Timeline Schedule -->
-<div class="wonder-right">
+<div class="wonder-right lg:col-span-7 lg:sticky lg:top-8 w-full">
 <div class="progress-container" id="progressContainer">
 <div class="progress-bar" id="progressBar"></div>
 </div>
@@ -606,7 +606,7 @@
 </div>
 <!-- SEO 가이드 섹션 -->
 <section class="guides-section" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-<a class="btn" href="guides/index.html" style="background-color: var(--primary); padding: 15px 25px; border-radius: 30px; display: inline-block; width: 100%; font-size: 1.1rem; text-decoration: none; color: #333; box-sizing: border-box; margin-bottom: 10px; line-height: 1.4;">📚 원더윅스 생존 가이드 전체 보기</a>
+<a class="btn py-3 min-h-[44px]" href="guides/index.html" style="background-color: var(--primary); padding: 15px 25px; border-radius: 30px; display: inline-block; width: 100%; font-size: 1.1rem; text-decoration: none; color: #333; box-sizing: border-box; margin-bottom: 10px; line-height: 1.4;">📚 원더윅스 생존 가이드 전체 보기</a>
 </section>
 <!-- FAQ 섹션 (SEO 텍스트 확보용) -->
 <section class="faq-section" style="margin-top: 40px; text-align: left;">
