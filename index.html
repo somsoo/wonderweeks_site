@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>원더윅스 계산기 | 출산 예정일로 보는 아기 도약기 날짜와 대처법</title>
-<meta name="description" content="출산 예정일을 넣으면 아기 도약기 10단계의 날짜, 지금 어느 시기인지, 다음 도약까지 며칠 남았는지 보여 줍니다. 공식 도약 차트 기준(2026년 9월 30일 확인), 가입 없이 무료.">
+<title>원더윅스 계산기 | 출산 예정일로 보는 아기 도약기</title>
+<meta name="description" content="출산 예정일을 넣으면 아기 도약기 10단계의 날짜, 지금 어느 시기인지, 다음 도약까지 며칠 남았는지 보여 줍니다.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://wonderweeksportal.enjoy-onepage.com/">
 <meta name="theme-color" content="#7c3aed">
@@ -13,13 +13,13 @@
 <meta property="og:locale" content="ko_KR">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="원더윅스 계산기">
-<meta property="og:title" content="원더윅스 계산기 | 출산 예정일로 보는 아기 도약기 날짜와 대처법">
-<meta property="og:description" content="출산 예정일을 넣으면 아기 도약기 10단계의 날짜, 지금 어느 시기인지, 다음 도약까지 며칠 남았는지 보여 줍니다. 공식 도약 차트 기준(2026년 9월 30일 확인), 가입 없이 무료.">
+<meta property="og:title" content="원더윅스 계산기 | 출산 예정일로 보는 아기 도약기">
+<meta property="og:description" content="출산 예정일을 넣으면 아기 도약기 10단계의 날짜, 지금 어느 시기인지, 다음 도약까지 며칠 남았는지 보여 줍니다.">
 <meta property="og:url" content="https://wonderweeksportal.enjoy-onepage.com/">
 <meta property="og:image" content="https://wonderweeksportal.enjoy-onepage.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="원더윅스 계산기 | 출산 예정일로 보는 아기 도약기 날짜와 대처법">
-<meta name="twitter:description" content="출산 예정일을 넣으면 아기 도약기 10단계의 날짜, 지금 어느 시기인지, 다음 도약까지 며칠 남았는지 보여 줍니다. 공식 도약 차트 기준(2026년 9월 30일 확인), 가입 없이 무료.">
+<meta name="twitter:title" content="원더윅스 계산기 | 출산 예정일로 보는 아기 도약기">
+<meta name="twitter:description" content="출산 예정일을 넣으면 아기 도약기 10단계의 날짜, 지금 어느 시기인지, 다음 도약까지 며칠 남았는지 보여 줍니다.">
 <meta name="twitter:image" content="https://wonderweeksportal.enjoy-onepage.com/og-image.png">
 <link rel="alternate" type="application/rss+xml" title="원더윅스 계산기 RSS" href="https://wonderweeksportal.enjoy-onepage.com/rss.xml">
 <link rel="sitemap" type="application/xml" href="https://wonderweeksportal.enjoy-onepage.com/sitemap.xml">
@@ -111,6 +111,25 @@ table.tl{width:100%;border-collapse:collapse;font-size:.93rem}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1f1633;color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:90vw}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion: reduce){.toast{transition:none}}
+</style>
+<script id="math-guard">
+// Global Math & DOM Output Guard: prevents NaN / Infinity leaks to UI
+(function() {
+  const origToLocaleString = Number.prototype.toLocaleString;
+  Number.prototype.toLocaleString = function(locales, options) {
+    if (!Number.isFinite(this.valueOf())) return '0';
+    return origToLocaleString.call(this, locales, options);
+  };
+  const origToFixed = Number.prototype.toFixed;
+  Number.prototype.toFixed = function(digits) {
+    if (!Number.isFinite(this.valueOf())) return '0';
+    return origToFixed.call(this, digits);
+  };
+})();
+</script>
+<style id="ad-cls-shield">
+  .ad-bottom { min-height: 280px !important; }
+  .ad-bottom ins { min-height: 280px !important; }
 </style>
 </head>
 <body>
