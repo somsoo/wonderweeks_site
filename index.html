@@ -61,59 +61,7 @@
 <!-- ADSENSE START: loader -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
 <!-- ADSENSE END: loader -->
-<style>
-:root{--bg:#faf7ff;--card:#fff;--ink:#1f1633;--muted:#6b6280;--accent:#7c3aed;--accent-2:#ede9fe;--line:#e7e2f3}
-*{box-sizing:border-box}
-html,body{margin:0;max-width:100%;overflow-x:hidden}
-body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
-.header{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;text-align:center;padding:26px 16px 22px}
-.header h1{margin:0;font-size:1.7rem}
-.header-sub{opacity:.92;margin-top:6px;font-size:.95rem}
-.wrap{max-width:1080px;margin:0 auto;padding:12px 14px 8px}
-.grid2{display:grid;grid-template-columns:1fr;gap:14px}
-@media (min-width:1024px){.grid2{grid-template-columns:1fr 1fr;align-items:start}.result{position:sticky;top:12px}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:14px 0}
-.grid2 .card{margin:0}
-.card h2{font-size:1.1rem;margin:0 0 10px}
-.lbl{display:block;font-weight:600;margin:4px 0 6px}
-input[type=date],select{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
-.hint{font-size:.88rem;color:var(--muted);margin:8px 0}
-.quick,.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.btn{font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px 14px;cursor:pointer;min-height:44px}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.err{color:#b91c1c;font-weight:600;margin:10px 0 0}
-.age{font-size:1.25rem;font-weight:700}
-.status{margin-top:8px;font-size:1.05rem}
-.next{margin-top:6px;color:var(--muted)}
-.tip{margin-top:10px;background:var(--accent-2);border-radius:12px;padding:10px 12px;font-size:.93rem}
-.guide-link{margin-top:10px;font-size:.93rem}
-.guide-link a{color:var(--accent);font-weight:700}
-details{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
-summary{cursor:pointer;font-weight:600}
-.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-top:8px}
-.table-wrap{overflow-x:auto}
-table.tl{width:100%;border-collapse:collapse;font-size:.93rem}
-.tl th,.tl td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
-.tl tr.now{background:var(--accent-2)}
-.tl tr.past td{color:var(--muted)}
-.badge{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.8rem;border:1px solid var(--line);white-space:nowrap}
-.badge.now{background:var(--accent);color:#fff;border-color:var(--accent)}
-.muted{color:var(--muted)}
-.faq-item h3{font-size:1rem;margin:12px 0 4px}
-.faq-item p{margin:0;color:#3b3450}
-.notice{border-color:#fcd34d;background:#fffbeb}
-.src{font-size:.85rem;color:var(--muted)}
-.ad-box{max-width:1080px;margin:10px auto;padding:0 14px;background:transparent;overflow:hidden;text-align:center}
-.ad-top ins{max-height:90px}
-.footer{text-align:center;font-size:.85rem;color:var(--muted);padding:18px 14px 28px}
-.footer a{color:var(--muted)}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1f1633;color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:90vw}
-.toast.show{opacity:1}
-@media (prefers-reduced-motion: reduce){.toast{transition:none}}
-</style>
 <script id="math-guard">
-// Global Math & DOM Output Guard: prevents NaN / Infinity leaks to UI
 (function() {
   const origToLocaleString = Number.prototype.toLocaleString;
   Number.prototype.toLocaleString = function(locales, options) {
@@ -127,341 +75,1256 @@ table.tl{width:100%;border-collapse:collapse;font-size:.93rem}
   };
 })();
 </script>
-<style id="ad-cls-shield">
-  .ad-bottom { min-height: 280px !important; }
-  .ad-bottom ins { min-height: 280px !important; }
-</style>
-<style id="global-quality-shield">
+<style>
+  :root {
+    --primary: #7c3aed;
+    --primary-hover: #6d28d9;
+    --primary-light: #f5f3ff;
+    --primary-border: #ddd6fe;
+    --accent-leap: #f43f5e;
+    --accent-calm: #10b981;
+    --text-main: #1f1633;
+    --text-sub: #4b5563;
+    --text-muted: #6b7280;
+    --bg-page: #faf7ff;
+    --border-card: #e5e7eb;
+    --radius-main: 16px;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
   html, body {
     max-width: 100%;
     overflow-x: hidden;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Pretendard", "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
     word-break: keep-all;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Header */
+  .site-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    width: 100%;
+  }
+  .header-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 800;
+    font-size: 1.05rem;
+  }
+  .brand-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.25);
+  }
+
+  /* Container */
+  .main-wrap {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1rem 0.85rem 3rem;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: #ffffff;
+    border: 1px solid var(--primary-border);
+    border-radius: 18px;
+    padding: 1.25rem 1.35rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.04);
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 0.45rem;
+  }
+  .hero-title {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--text-main);
+    letter-spacing: -0.025em;
+  }
+  .hero-desc {
+    font-size: 0.825rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    line-height: 1.45;
+  }
+
+  /* Input Card */
+  .input-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  .input-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #334155;
+    margin-bottom: 0.45rem;
+  }
+  .input-group {
+    position: relative;
+    width: 100%;
+  }
+  .date-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .date-input:focus {
+    background: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+  }
+  .hint-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.45rem;
+    line-height: 1.4;
+  }
+
+  /* Preset Chips */
+  .presets-row {
+    display: flex;
+    gap: 0.35rem;
+    margin-top: 0.65rem;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .preset-chip {
+    flex: 0 0 auto;
+    font-size: 0.725rem;
+    font-weight: 700;
+    padding: 0.3rem 0.65rem;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .preset-chip:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+
+  /* Premature Baby / Birth Date Helper Accordion */
+  .helper-details {
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed #e2e8f0;
+  }
+  .helper-summary {
+    font-size: 0.775rem;
+    font-weight: 700;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .helper-body {
+    margin-top: 0.65rem;
+    background: #f8fafc;
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+  }
+  .helper-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0.4rem;
+    margin-top: 0.35rem;
+  }
+  @media (max-width: 440px) {
+    .helper-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .helper-input, .helper-select {
+    height: 38px;
+    padding: 0 0.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    background: #ffffff;
+    font-family: inherit;
+    width: 100%;
+  }
+  .btn-helper-calc {
+    margin-top: 0.5rem;
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Real-time Wonder Weeks Weather Stage */
+  .stage-card {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    border-radius: 20px;
+    padding: 1.5rem 1.25rem;
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .stage-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.725rem;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 3px 10px;
+    border-radius: 9999px;
+    margin-bottom: 0.5rem;
+  }
+  .stage-age-text {
+    font-size: 0.825rem;
+    color: #e9d5ff;
+    font-weight: 600;
+  }
+  .stage-status-title {
+    font-size: 1.65rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin: 0.35rem 0;
+    line-height: 1.25;
+  }
+  .stage-next-sub {
+    font-size: 0.85rem;
+    color: #ddd6fe;
+    font-weight: 600;
+    margin-bottom: 0.85rem;
+  }
+
+  /* Healing Tip & Signs Box */
+  .tip-box {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 0.85rem;
+    text-align: left;
+    font-size: 0.775rem;
+    line-height: 1.5;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .tip-box strong {
+    color: #fef08a;
+  }
+
+  /* 10 Leaps Timeline Cards (Zero-Overflow Architecture) */
+  .timeline-section {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 1.25rem 1.15rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  .timeline-header {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.85rem;
+  }
+  .leaps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+  }
+  .leap-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.15s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .leap-item:hover {
+    border-color: var(--primary-border);
+    background: var(--primary-light);
+  }
+  .leap-item.now {
+    background: #fdf4ff;
+    border: 2px solid var(--primary);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+  }
+  .leap-item.past {
+    opacity: 0.7;
+    background: #fafafa;
+  }
+  .leap-info {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .leap-step-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.2rem;
+  }
+  .leap-num {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  .leap-name {
+    font-size: 0.875rem;
+    font-weight: 800;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .leap-date-range {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  .leap-badge {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+  }
+  .leap-badge.now {
+    background: var(--primary);
+    color: #ffffff;
+  }
+  .leap-badge.upcoming {
+    background: #e2e8f0;
+    color: #475569;
+  }
+  .leap-badge.past {
+    background: #f1f5f9;
+    color: #94a3b8;
+  }
+
+  /* SMART 2-TIER ACTION TOOLBAR (Strict User Standard) */
+  .action-toolbar {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .toolbar-row {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .toolbar-btn {
+    height: 44px;
+    min-height: 44px;
+    border-radius: 10px;
+    font-size: 0.825rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.15s;
+    white-space: nowrap;
+    word-break: keep-all;
+    font-family: inherit;
+    border: 1px solid transparent;
+  }
+  .toolbar-btn.primary {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: #ffffff;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+  }
+  .toolbar-btn.primary:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  }
+  .toolbar-btn.secondary {
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    flex: 1 1 50%;
+  }
+  .toolbar-btn.secondary:hover {
+    background: #f1f5f9;
+  }
+  .toolbar-btn.outline {
+    background: #ffffff;
+    color: var(--primary);
+    border: 1px solid var(--primary-border);
+    flex: 1 1 50%;
+  }
+  .toolbar-btn.outline:hover {
+    background: var(--primary-light);
+  }
+
+  /* AdSense Slots */
+  .ad-box {
+    max-width: 680px;
+    margin: 1.25rem auto;
+    text-align: center;
+    overflow: hidden;
+    background: transparent;
+  }
+  .ad-top ins {
+    max-height: 90px;
   }
   .ad-bottom, .ad-bottom ins {
     min-height: 280px !important;
-    background: transparent !important;
   }
-  :focus-visible {
-    outline: 2px solid #2563eb !important;
-    outline-offset: 2px !important;
+
+  /* FAQ Accordion */
+  .faq-section {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+    width: 100%;
+  }
+  .faq-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.75rem;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .faq-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.75rem 0.85rem;
+    background: #ffffff;
+  }
+  .faq-question {
+    font-size: 0.825rem;
+    font-weight: 800;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-answer {
+    font-size: 0.775rem;
+    color: #4b5563;
+    margin-top: 0.45rem;
+    line-height: 1.55;
+  }
+
+  /* Related Tools Grid */
+  .utilities-section {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 1.15rem;
+    margin-top: 1rem;
+    width: 100%;
+  }
+  .utilities-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .utilities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  @media (max-width: 480px) {
+    .utilities-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .utility-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.65rem 0.75rem;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.15s;
+  }
+  .utility-card:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+  }
+  .utility-name {
+    font-size: 0.775rem;
+    font-weight: 800;
+    color: #1e293b;
+  }
+  .utility-arrow {
+    color: #94a3b8;
+    font-size: 0.8rem;
+  }
+
+  .disclaimer-box {
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    background: #fffbeb;
+    border: 1px solid #fef3c7;
+    border-radius: 10px;
+    font-size: 0.725rem;
+    color: #92400e;
+    text-align: center;
+    line-height: 1.45;
+  }
+
+  /* Footer */
+  .site-footer {
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 2rem;
+    padding: 1.5rem 1rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.45rem;
+    font-weight: 600;
+  }
+  .footer-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Toast Notification */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1f1633;
+    color: #ffffff;
+    padding: 0.65rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
   }
 </style>
 </head>
 <body>
-<header class="header">
-  <h1>원더윅스 계산기</h1>
-  <div class="header-sub">출산 예정일로 보는 아기 도약기 10단계 · 무료, 가입 없음, 기기 안에서만 계산</div>
-</header>
 
-<!-- ADSENSE START: top -->
-<div class="ad-box ad-top">
-  <ins class="adsbygoogle" style="display:block;height:60px;max-height:90px" data-ad-client="ca-pub-2228289204702106" data-ad-slot="3824727725" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-<!-- ADSENSE END: top -->
-
-<main class="wrap">
-  <div class="grid2">
-    <section class="card" aria-labelledby="in-h">
-      <h2 id="in-h">1. 출산 예정일 입력</h2>
-      <label for="due" class="lbl">출산 예정일 (출생일이 아닙니다)</label>
-      <input id="due" type="date" autocomplete="off">
-      <p class="hint">💡 도약기는 출산 예정일부터 셉니다. 2주 일찍 태어난 아기는 생일 기준으로 각 도약이 약 2주 늦게 옵니다.</p>
-      <div class="quick">
-        <button type="button" class="btn" id="btn-clear">지우기</button>
-      </div>
-      <details id="birth-helper">
-        <summary>출생일만 알고 있나요?</summary>
-        <label for="birth" class="lbl">출생일과 출생 당시 임신 주수</label>
-        <div class="row3">
-          <input id="birth" type="date" aria-label="출생일">
-          <select id="ga-w" aria-label="출생 당시 임신 주수"></select>
-          <select id="ga-d" aria-label="추가 일수"></select>
-        </div>
-        <div class="quick"><button type="button" class="btn primary" id="btn-birth">이 정보로 출산 예정일 맞추기</button></div>
-        <p class="hint">출산 예정일 = 출생일 + (40주 − 출생 당시 임신 기간)</p>
-      </details>
-      <p class="err" id="err" role="alert" hidden></p>
-    </section>
-
-    <section class="card result" aria-labelledby="out-h" aria-live="polite">
-      <h2 id="out-h">2. 지금 우리 아기는</h2>
-      <div class="age" id="out-age">출산 예정일을 넣으면 도약기 일정을 보여 드립니다.</div>
-      <div class="status" id="out-status"></div>
-      <div class="next" id="out-next"></div>
-      <div class="tip" id="out-tip" hidden></div>
-      <div class="guide-link" id="out-guide" hidden></div>
-      <div class="actions">
-        <button type="button" class="btn primary" id="btn-copy" disabled>📋 결과 복사</button>
-        <button type="button" class="btn" id="btn-share" disabled>📤 링크 공유</button>
-      </div>
-    </section>
-  </div>
-
-<!-- ADSENSE START: mid (right after the result card) -->
-<div class="ad-box ad-mid">
-  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="1186914926" data-ad-format="auto" data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-<!-- ADSENSE END: mid -->
-
-  <section class="card" aria-labelledby="tl-h">
-    <h2 id="tl-h">📅 도약기 10단계 날짜</h2>
-    <div class="table-wrap">
-      <table class="tl" id="timeline">
-        <thead><tr><th>도약</th><th>예정일로부터</th><th>날짜</th><th>상태</th></tr></thead>
-        <tbody id="tl-body"><tr><td colspan="4" class="muted">위에 출산 예정일을 넣어 주세요.</td></tr></tbody>
-      </table>
+  <!-- Top Sticky Navigation Bar -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="brand-logo">
+        <div class="brand-badge">👶</div>
+        <span>원더윅스 계산기</span>
+      </a>
+      <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">아기 급성장기 캘린더</span>
     </div>
-    <p class="hint">단계별 자세한 설명은 <a href="/guides/index.html">도약기 가이드</a>에 있습니다.</p>
-  </section>
+  </header>
 
-  <section class="card" aria-labelledby="how-h">
-    <h2 id="how-h">🧮 계산 방법</h2>
-    <p>이 기기의 달력으로 출산 예정일부터 오늘까지 며칠이 지났는지 셉니다. 각 도약 기간은 프란스 플로이(Frans Plooij)와 헤티 반 드 레이트(Hetty van de Rijt)의 책과 앱 The Wonder Weeks가 공개한 도약 차트의 '예정일로부터 몇 주' 범위를 따릅니다. 예를 들어 4단계는 예정일로부터 14주 0일(98일째)부터 19주 6일(139일째)까지입니다.</p>
-    <ul>
-      <li>출산 예정일 당일이 0일째이고, 주 수는 그날부터 셉니다.</li>
-      <li>날짜는 이 기기의 달력을 쓰므로 시간대나 서머타임 때문에 하루가 밀리지 않습니다.</li>
-      <li>표의 기간은 보채는 징후가 나타나기 쉬운 때입니다. 아기마다 다르고, 징후가 거의 없는 아기도 있습니다.</li>
-    </ul>
-    <p class="src">출처: 도약 주차 범위는 thewonderweeks.com 공식 도약 차트(2026년 9월 30일 확인)를 따랐습니다. 이 페이지의 설명은 직접 요약한 것입니다.</p>
-  </section>
+  <!-- ADSENSE START: top (Slot 3824727725) -->
+  <div class="ad-box ad-top">
+    <ins class="adsbygoogle"
+         style="display:block;height:60px;max-height:90px"
+         data-ad-client="ca-pub-2228289204702106"
+         data-ad-slot="3824727725"
+         data-ad-format="horizontal"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <!-- ADSENSE END: top -->
 
-  <section class="card" id="faq" aria-labelledby="faq-h">
-    <h2 id="faq-h">❓ 자주 묻는 질문</h2>
-    <div class="faq-item"><h3>왜 출생일이 아니라 출산 예정일로 계산하나요?</h3><p>이 도약 모델은 수정 후 발달이 얼마나 진행됐는지를 기준으로 하기 때문에 출산 예정일부터 셉니다. 2주 일찍 태어난 아기는 생일 기준으로 각 도약이 약 2주 늦게 오고, 늦게 태어난 아기는 그만큼 빨리 옵니다.</p></div>
-    <div class="faq-item"><h3>도약기는 얼마나 이어지나요?</h3><p>아기마다 다릅니다. 보채는 시기가 하루 만에 지나가기도 하고 몇 주 이어지기도 합니다. 표의 기간은 징후가 나타나기 쉬운 때를 뜻하며 정해진 일정이 아닙니다. 징후가 거의 없는 아기도 있습니다.</p></div>
-    <div class="faq-item"><h3>이른둥이는 무엇을 입력하나요?</h3><p>원래 출산 예정일을 넣으세요. 출생일만 안다면 '출생일만 알고 있나요?'를 열고 출생일과 출생 당시 임신 주수를 넣으면 예정일을 계산해 줍니다.</p></div>
-    <div class="faq-item"><h3>의학적 조언인가요?</h3><p>아닙니다. 널리 알려진 도약 모델에 관한 일반 정보이며 아기가 아픈지는 알 수 없습니다. 열이 나거나, 잘 먹지 않거나, 평소와 달리 처지거나, 걱정스러운 울음이 이어지면 소아청소년과에 문의하세요. 위급하면 119에 연락하세요.</p></div>
-    <div class="faq-item"><h3>입력한 날짜는 어디에 저장되나요?</h3><p>이 기기의 브라우저에만 저장해 다음에 열 때 다시 보여 줍니다. 서버로 보내지 않으며, 지우기 버튼을 누르면 삭제됩니다.</p></div>
-  </section>
+  <main class="main-wrap">
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span>🌱</span>
+        <span>출산 예정일 기준 아기 도약기 10단계</span>
+      </div>
+      <h1 class="hero-title">우리 아기 원더윅스 캘린더</h1>
+      <p class="hero-desc">
+        아기가 유난히 보채고 잠투정이 심해졌나요?<br>
+        출산 예정일을 입력하면 지금 겪고 있는 급성장 도약기와 대처 팁을 알려드립니다.
+      </p>
+    </section>
 
-  <section class="card notice" aria-labelledby="note-h">
-    <h2 id="note-h">⚠️ 알아 두세요</h2>
-    <p>이 계산기는 일반 정보이며 의학적 조언이 아닙니다. The Wonder Weeks와 제휴하거나 승인받지 않았습니다. 아기가 열이 나거나, 잘 먹지 않거나, 평소와 달리 처지거나, 걱정스러운 울음이 이어지면 소아청소년과에 연락하세요.</p>
-  </section>
-</main>
+    <!-- 1. Input Card -->
+    <section class="input-card">
+      <label class="input-label" for="due">🍼 출산 예정일 선택 (출생일이 아닙니다)</label>
+      <div class="input-group">
+        <input class="date-input" id="due" type="date" autocomplete="off">
+      </div>
+      <p class="hint-text">
+        💡 <strong>왜 예정일 기준인가요?</strong> 아기의 뇌 발달은 수정된 날부터 진행되므로, 조산이나 지연 출생과 무관하게 '원래 출산 예정일'을 기준으로 세어야 정확합니다.
+      </p>
 
-<!-- ADSENSE START: bottom -->
-<div class="ad-box ad-bottom">
-  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="3416334507" data-ad-format="auto" data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-<!-- ADSENSE END: bottom -->
+      <!-- Preset Quick Chips -->
+      <div class="presets-row">
+        <button class="preset-chip" type="button" onclick="setPresetDaysAgo(0)">오늘 예정일</button>
+        <button class="preset-chip" type="button" onclick="setPresetDaysAgo(35)">생후 5주 (1단계)</button>
+        <button class="preset-chip" type="button" onclick="setPresetDaysAgo(60)">생후 8주 (2단계)</button>
+        <button class="preset-chip" type="button" onclick="setPresetDaysAgo(85)">생후 12주 (3단계)</button>
+        <button class="preset-chip" type="button" onclick="setPresetDaysAgo(130)">생후 19주 (4단계)</button>
+      </div>
 
-<footer class="footer">
-  <p>무료 원더윅스 계산기입니다. 모든 계산은 이 기기에서 하며, 날짜는 서버로 보내지 않습니다.</p>
-  <p><a href="/privacy.html">개인정보처리방침</a> | <a href="/terms.html">이용약관</a></p>
-</footer>
+      <!-- Premature / Birth Date Helper Accordion -->
+      <details class="helper-details" id="birth-helper">
+        <summary class="helper-summary">
+          <span>👶 출생일만 알고 계신가요? (출생일로 예정일 계산)</span>
+        </summary>
+        <div class="helper-body">
+          <label style="font-size: 0.725rem; font-weight: 700; color: #475569;">실제 출생일과 당시 임신 주수를 선택하세요</label>
+          <div class="helper-grid">
+            <input class="helper-input" id="birth" type="date" aria-label="출생일">
+            <select class="helper-select" id="ga-w" aria-label="출생 당시 임신 주수"></select>
+            <select class="helper-select" id="ga-d" aria-label="추가 일수"></select>
+          </div>
+          <button class="btn-helper-calc" id="btn-birth" type="button">이 정보로 출산 예정일 맞추기</button>
+        </div>
+      </details>
+    </section>
 
-<div id="global-ux-toast" class="toast" role="status" aria-live="polite"></div>
+    <!-- 2. Real-time Status Weather Stage -->
+    <section class="stage-card" id="stageCard">
+      <div class="stage-badge" id="stageBadge">
+        <span id="stageIcon">☀️</span>
+        <span id="stageWeather">아기 상태 진단 중</span>
+      </div>
+      <div class="stage-age-text" id="outAge">출산 예정일을 선택해 주세요.</div>
+      <div class="stage-status-title" id="outStatusTitle">도약기를 계산하고 있습니다</div>
+      <div class="stage-next-sub" id="outNext"></div>
 
-<!-- LOGIC START -->
-<script>
-(function () {
-  'use strict';
-  var SITE = 'https://wonderweeksportal.enjoy-onepage.com';
-  var TOOL_NAME = '원더윅스 계산기';
-  var STORE = 'wonderWeeksDueDate';   /* same key as the previous version, so a saved due date carries over */
-  var MAX_FUTURE_DAYS = 300;          /* a due date is at most about 10 months away */
-  var MAX_PAST_DAYS = 5 * 366;        /* older than about 5 years is almost surely a typo */
-  var WDAY = '일월화수목금토';
-  /* Weeks after the due date; a day d is inside a leap when start*7 <= d < end*7 (official chart, checked 2026-09-30) */
-  var LEAPS = [
-    { n: 1, start: 4, end: 6, name: '감각의 세계', changes: '감각이 빠르게 예민해져서 보고 듣고 닿는 것이 모두 새롭게 느껴질 수 있습니다.', signs: '울음이 늘고, 더 자주 안아 달라고 하며, 잠이 얕아지거나 짧아집니다.', helps: '충분히 안아 주고 살을 맞대 주세요. 조용한 방과 부드럽고 일정한 생활 흐름이 도움이 됩니다.' },
-    { n: 2, start: 7, end: 10, name: '패턴의 세계', changes: '모양, 밝고 어두움, 자기 손발 같은 단순한 패턴을 알아보기 시작합니다.', signs: '관심을 더 원하고, 수유 때 더 보채며, 밤에 더 자주 깹니다.', helps: '얼굴을 마주 보고 놀아 주고, 흑백 대비가 뚜렷한 그림을 보여 주고, 자기 손을 보고 잡을 시간을 주세요.' },
-    { n: 3, start: 11, end: 13, name: '미세한 변화의 세계', changes: '더 매끄러운 움직임과 목소리·소리·빛의 작은 변화를 따라갈 수 있게 됩니다.', signs: '더 매달리고, 목욕 같은 평소 돌봄 중에 갑자기 보챕니다.', helps: '목소리 높낮이를 바꿔 말해 주고, 놀 때 천천히 움직이고, 부드럽게 흔들어 주는 놀이를 해 보세요.' },
-    { n: 4, start: 14, end: 20, name: '사건의 세계', changes: '짧은 동작들이 하나의 일로 이어지면서 뻗기, 잡기, 옹알이가 늘어납니다.', signs: '보채는 기간이 가장 긴 경우가 많고, 4개월 무렵 수면 퇴행과 겹쳐 밤에 더 자주 깰 수 있습니다.', helps: '손이 닿는 곳에 장난감을 두고, 옹알이에 대답해 주고, 잠들기 전 순서를 일정하게 지켜 주세요.' },
-    { n: 5, start: 22, end: 27, name: '관계의 세계', changes: '사물과 사람 사이의 거리, 그리고 보호자와의 거리를 알기 시작합니다.', signs: '분리 불안이 생겨 보호자가 방을 나가면 울고, 낯선 사람을 경계합니다.', helps: '까꿍 놀이를 하고, 몰래 사라지지 말고 인사한 뒤 나가며, 짧고 예측할 수 있는 이별을 연습해 보세요.' },
-    { n: 6, start: 33, end: 38, name: '분류의 세계', changes: '동물, 음식, 사람처럼 공통점이 있는 것끼리 묶어서 알기 시작합니다.', signs: '좋고 싫음이 뚜렷해지고, 기저귀 갈기나 옷 입기를 거부합니다.', helps: '사물을 무리 이름으로 불러 주고, 그림책을 함께 읽고, 장난감을 종류별로 나눠 보세요.' },
-    { n: 7, start: 41, end: 47, name: '순서의 세계', changes: '쌓기, 넣었다 빼기, 제자리에 두기처럼 순서대로 하는 일을 이해하기 시작합니다.', signs: '혼자 하려 하고, 중간에 막히면 짜증을 냅니다.', helps: '해 볼 시간을 주고, 한 단계씩 하는 놀이를 하고, 작은 일을 거들게 해 주세요.' },
-    { n: 8, start: 51, end: 55, name: '프로그램의 세계', changes: '여러 순서가 모여 옷 입기, 식사, 외출 같은 하나의 일과가 됩니다.', signs: '계획이 바뀌면 떼를 쓰고, 한계를 시험하는 행동이 늘어납니다.', helps: '일과를 일정하게 지키고, 다음에 할 일을 미리 말해 주고, 두 가지 중에서 고르게 해 주세요.' },
-    { n: 9, start: 59, end: 65, name: '원칙의 세계', changes: '여러 방법을 시도하고, 협상하고, 간단한 흉내 놀이를 시작합니다.', signs: '"싫어!" 시기가 오고, 답답하면 때리거나 무는 아이도 있습니다.', helps: '차분하고 일관되게 선을 지켜 주고, 감정을 말로 표현해 주고, 부드러운 행동을 보여 주세요.' },
-    { n: 10, start: 70, end: 75, name: '시스템의 세계', changes: '가족 안의 역할, 나와 너, 옳고 그름에 대한 초기 감각 같은 더 큰 생각이 자리 잡습니다.', signs: '고집이 세지고, 기분이 자주 바뀌며, 잠자리에 들기를 거부합니다.', helps: '새로 생긴 독립심을 인정해 주고, 작은 책임을 맡기고, 일과를 예측할 수 있게 유지해 주세요.' }
-  ];
+      <!-- Warm Healing Tip Box -->
+      <div class="tip-box" id="outTip">
+        아기가 이유 없이 울고 보챌 때는 '아기가 지금 세상을 더 깊이 이해하느라 불안해하고 있구나'라고 안아주세요.
+      </div>
+    </section>
 
-  function $(id) { return document.getElementById(id); }
-  function on(id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); }
-  function pad(n) { return (n < 10 ? '0' : '') + n; }
-  function parseYMD(s) {
-    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || '').trim());
-    if (!m) return null;
-    var y = +m[1], mo = +m[2], d = +m[3];
-    var dt = new Date(y, mo - 1, d);
-    if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
-    return dt;
-  }
-  function toYMD(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
-  function addDays(d, n) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() + n); return x; }
-  function dayDiff(a, b) { return Math.round((Date.UTC(b.getFullYear(), b.getMonth(), b.getDate()) - Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())) / 86400000); }
-  function today() { var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
-  function fmt(d) { return d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + WDAY.charAt(d.getDay()) + ')'; }
-  function ageText(days) { var w = Math.floor(days / 7), r = days % 7; return w + '주' + (r ? ' ' + r + '일' : ''); }
-  function setText(id, t) { var el = $(id); if (el) el.textContent = t; }
+    <!-- SMART 2-TIER ACTION TOOLBAR (Strict User Standard) -->
+    <div class="action-toolbar">
+      <div class="toolbar-row">
+        <button class="toolbar-btn primary" id="btnDownloadPng" onclick="downloadWonderweeksCardPNG()" type="button">
+          <span>📥</span>
+          <span>우리 아기 도약기 카드 PNG 저장</span>
+        </button>
+      </div>
+      <div class="toolbar-row">
+        <button class="toolbar-btn secondary" id="btn-copy" onclick="copyWonderweeksSummary()" type="button">
+          <span>📋</span>
+          <span>도약기 요약 복사</span>
+        </button>
+        <button class="toolbar-btn outline" id="btn-share" onclick="shareWonderweeksResult()" type="button">
+          <span>🔗</span>
+          <span>결과 공유</span>
+        </button>
+      </div>
+    </div>
 
-  function compute(due, now) {
-    var d = dayDiff(due, now);
-    var rows = LEAPS.map(function (L) {
-      var s = L.start * 7, e = L.end * 7;
-      return { L: L, s: s, e: e, start: addDays(due, s), end: addDays(due, e - 1),
-               status: d >= e ? 'past' : (d >= s ? 'now' : 'upcoming') };
-    });
-    var cur = null, next = null, i;
-    for (i = 0; i < rows.length; i++) { if (rows[i].status === 'now') { cur = rows[i]; break; } }
-    for (i = 0; i < rows.length; i++) { if (rows[i].status === 'upcoming') { next = rows[i]; break; } }
-    return { d: d, rows: rows, cur: cur, next: next };
-  }
+    <!-- Mid AdSense Banner (Slot 1186914926) -->
+    <!-- ADSENSE START: mid -->
+    <div class="ad-box ad-mid" style="max-width:680px;margin:20px auto;text-align:center;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2228289204702106"
+           data-ad-slot="1186914926"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <!-- ADSENSE END: mid -->
 
-  var last = null;  /* {due, now, r, t} for copy/share */
+    <!-- 3. Zero-Overflow Timeline Cards: 10 Leaps -->
+    <section class="timeline-section">
+      <h2 class="timeline-header">
+        <span>📅</span>
+        <span>아기 도약기 10단계 전체 타임라인</span>
+      </h2>
+      <div class="leaps-list" id="leapsList">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </section>
 
-  function describe(due, now, r) {
-    var d = r.d, age, status, next, tip = '', guide = null;
-    if (d < 0) age = '출산 예정일까지 ' + (-d) + '일 남았습니다 · ' + fmt(due);
-    else if (d === 0) age = '오늘이 출산 예정일입니다 · ' + fmt(due);
-    else age = '출산 예정일로부터 ' + ageText(d) + ' 지났습니다';
-    if (r.cur) {
-      var c = r.cur;
-      status = '🌀 ' + c.L.n + '단계 도약: ' + c.L.name + ' (보채기 쉬운 시기, ' + (c.e - c.s) + '일 중 ' + (d - c.s + 1) + '일째)';
-      next = '이 시기의 마지막 날: ' + fmt(c.end) + '.' +
-             (r.next ? ' 다음 도약: ' + r.next.L.n + '단계 ' + r.next.L.name + ' · ' + fmt(r.next.start) + '부터.' : ' 표의 마지막 도약입니다.');
-      tip = '보일 수 있는 모습: ' + c.L.signs + ' 도움이 되는 것: ' + c.L.helps;
-      guide = c.L;
-    } else if (r.next) {
-      var n = r.next, until = n.s - d;
-      status = d < 0 ? '👶 출산 예정일 전입니다' : (n.L.n === 1 ? '🌱 첫 도약 전입니다' : '☀️ 도약 사이: 비교적 편안한 시기');
-      next = '다음 도약: ' + n.L.n + '단계 ' + n.L.name + ' · ' + fmt(n.start) + '부터 · ' + until + '일 남음.';
-      tip = '다음 도약에서 생기는 변화: ' + n.L.changes;
-      guide = n.L;
-    } else {
-      status = '🎉 표에 있는 도약 10단계가 모두 지났습니다.';
-      next = '마지막 시기가 끝난 날: ' + fmt(r.rows[r.rows.length - 1].end) + '.';
-    }
-    return { age: age, status: status, next: next, tip: tip, guide: guide };
-  }
+    <!-- Related Utilities Grid -->
+    <section class="utilities-section">
+      <h2 class="utilities-title">
+        <span>🍼</span>
+        <span>육아 & 가족 필수 유틸리티</span>
+      </h2>
+      <div class="utilities-grid">
+        <a class="utility-card" href="https://parental.enjoy-onepage.com/" target="_blank" rel="noopener">
+          <span class="utility-name">육아휴직 급여 계산기</span>
+          <span class="utility-arrow">→</span>
+        </a>
+        <a class="utility-card" href="https://calc-half-leave.enjoy-onepage.com/" target="_blank" rel="noopener">
+          <span class="utility-name">반반차·연차 시간 계산기</span>
+          <span class="utility-arrow">→</span>
+        </a>
+        <a class="utility-card" href="https://child-subsidy-calc.enjoy-onepage.com/" target="_blank" rel="noopener">
+          <span class="utility-name">아동수당·부모급여 모의계산기</span>
+          <span class="utility-arrow">→</span>
+        </a>
+        <a class="utility-card" href="https://enjoy-onepage.com/" target="_blank" rel="noopener">
+          <span class="utility-name">원페이지 전체 도구 허브</span>
+          <span class="utility-arrow">→</span>
+        </a>
+      </div>
+    </section>
 
-  function renderTable(r) {
-    var body = $('tl-body'); if (!body) return;
-    body.textContent = '';
-    r.rows.forEach(function (x) {
-      var tr = document.createElement('tr'); tr.className = x.status;
-      var label = x.status === 'past' ? '지남' : x.status === 'now' ? '지금' : (x.s - r.d) + '일 뒤';
-      var td1 = document.createElement('td'), b = document.createElement('strong'), sp = document.createElement('span');
-      b.textContent = x.L.n + '단계'; sp.className = 'muted'; sp.textContent = x.L.name;
-      td1.appendChild(b); td1.appendChild(document.createElement('br')); td1.appendChild(sp);
-      var td2 = document.createElement('td'); td2.textContent = x.L.start + '~' + (x.L.end - 1) + '주';
-      var td3 = document.createElement('td'); td3.textContent = fmt(x.start) + ' ~ ' + fmt(x.end);
-      var td4 = document.createElement('td'), bd = document.createElement('span');
-      bd.className = 'badge ' + x.status; bd.textContent = label; td4.appendChild(bd);
-      [td1, td2, td3, td4].forEach(function (td) { tr.appendChild(td); });
-      body.appendChild(tr);
-    });
-  }
+    <!-- FAQ Accordion -->
+    <section class="faq-section" id="faq">
+      <h2 class="faq-title">❓ 자주 묻는 질문 (FAQ)</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>왜 출생일이 아니라 출산 예정일로 계산하나요?</span>
+            <span>▾</span>
+          </summary>
+          <p class="faq-answer">
+            이 도약 모델은 수정 후 발달이 얼마나 진행됐는지를 기준으로 하기 때문에 출산 예정일부터 셉니다. 2주 일찍 태어난 아기는 생일 기준으로 각 도약이 약 2주 늦게 오고, 늦게 태어난 아기는 그만큼 빨리 옵니다.
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>도약기는 얼마나 이어지나요?</span>
+            <span>▾</span>
+          </summary>
+          <p class="faq-answer">
+            아기마다 다릅니다. 보채는 시기가 하루 만에 지나가기도 하고 몇 주 이어지기도 합니다. 표의 기간은 징후가 나타나기 쉬운 때를 뜻하며 정해진 일정이 아닙니다. 징후가 거의 없는 아기도 있습니다.
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>이른둥이는 무엇을 입력하나요?</span>
+            <span>▾</span>
+          </summary>
+          <p class="faq-answer">
+            원래 출산 예정일을 넣으세요. 출생일만 안다면 '출생일만 알고 있나요?'를 열고 출생일과 출생 당시 임신 주수를 넣으면 예정일을 계산해 줍니다.
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>의학적 조언인가요?</span>
+            <span>▾</span>
+          </summary>
+          <p class="faq-answer">
+            아닙니다. 널리 알려진 도약 모델에 관한 일반 정보이며 아기가 아픈지는 알 수 없습니다. 열이 나거나, 잘 먹지 않거나, 평소와 달리 처지거나, 걱정스러운 울음이 이어지면 소아청소년과에 문의하세요. 위급하면 119에 연락하세요.
+          </p>
+        </details>
+      </div>
+    </section>
 
-  function clearOut() {
-    last = null;
-    setText('out-age', '출산 예정일을 넣으면 도약기 일정을 보여 드립니다.');
-    setText('out-status', ''); setText('out-next', '');
-    var tip = $('out-tip'); if (tip) { tip.hidden = true; tip.textContent = ''; }
-    var g = $('out-guide'); if (g) { g.hidden = true; g.textContent = ''; }
-    var body = $('tl-body');
-    if (body) { body.textContent = ''; var tr = document.createElement('tr'), td = document.createElement('td'); td.colSpan = 4; td.className = 'muted'; td.textContent = '위에 출산 예정일을 넣어 주세요.'; tr.appendChild(td); body.appendChild(tr); }
-    ['btn-copy', 'btn-share'].forEach(function (id) { var b = $(id); if (b) b.disabled = true; });
-  }
-  function setErr(msg) { var e = $('err'); if (e) { e.textContent = msg || ''; e.hidden = !msg; } }
-  function saveDue(v) { try { if (v) localStorage.setItem(STORE, v); else localStorage.removeItem(STORE); } catch (e) { /* storage unavailable: nothing to save */ } }
-  function syncUrl(v) { try { history.replaceState(null, '', location.pathname + (v ? '?due=' + v : '')); } catch (e) { /* e.g. opened from a file */ } }
-  function link() { return last ? SITE + '/?due=' + toYMD(last.due) : SITE + '/'; }
+    <!-- Medical Disclaimer -->
+    <div class="disclaimer-box">
+      ⚠️ 본 계산기는 아동 발달 이론에 근거한 참고용 도구이며 의학적 진단이 아닙니다.<br>
+      아기에게 발열, 탈수, 심한 보챔이 지속될 경우 즉시 소아청소년과 전문의의 진료를 받으세요.
+    </div>
+  </main>
 
-  function render() {
-    var input = $('due'); if (!input) return;
-    var raw = input.value;
-    if (!raw) { setErr(''); clearOut(); saveDue(''); syncUrl(''); return; }
-    var due = parseYMD(raw);
-    if (!due) { setErr('올바른 날짜를 넣어 주세요.'); clearOut(); return; }
-    var now = today(), r = compute(due, now);
-    if (r.d < -MAX_FUTURE_DAYS) { setErr('출산 예정일이 10개월 넘게 남아 있습니다. 연도를 확인해 주세요.'); clearOut(); return; }
-    if (r.d > MAX_PAST_DAYS) { setErr('출산 예정일이 5년도 더 지났습니다. 연도를 확인해 주세요.'); clearOut(); return; }
-    setErr('');
-    var t = describe(due, now, r);
-    setText('out-age', t.age); setText('out-status', t.status); setText('out-next', t.next);
-    var tip = $('out-tip'); if (tip) { tip.textContent = t.tip; tip.hidden = !t.tip; }
-    var g = $('out-guide');
-    if (g) {
-      g.textContent = '';
-      if (t.guide) { var a = document.createElement('a'); a.href = '/guides/leap' + t.guide.n + '.html'; a.textContent = t.guide.n + '단계 도약 가이드 읽기 →'; g.appendChild(a); }
-      g.hidden = !t.guide;
-    }
-    renderTable(r);
-    last = { due: due, now: now, r: r, t: t };
-    ['btn-copy', 'btn-share'].forEach(function (id) { var b = $(id); if (b) b.disabled = false; });
-    saveDue(raw); syncUrl(raw);
-  }
+  <!-- ADSENSE START: bottom (Slot 3416334507) -->
+  <div class="ad-box ad-bottom">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2228289204702106"
+         data-ad-slot="3416334507"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <!-- ADSENSE END: bottom -->
 
-  /* ---------- toast · copy · share (Web Share -> clipboard -> honest message on failure) ---------- */
-  var toastTimer = null;
-  function showToastNotification(msg) {
-    var el = $('global-ux-toast'); if (!el) return;
-    el.textContent = msg; el.classList.add('show');
-    clearTimeout(toastTimer); toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
-  }
-  var COPIED = '복사했습니다. 원하는 곳에 붙여 넣으세요.';
-  function fallbackCopy(text) {
-    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
-    var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-    document.body.removeChild(ta);
-    showToastNotification(ok ? COPIED : '복사하지 못했습니다. 주소창의 링크를 직접 복사해 주세요.');
-  }
-  function copyText(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(function () { showToastNotification(COPIED); }, function () { fallbackCopy(text); });
-    } else { fallbackCopy(text); }
-  }
-  function summary() {
-    if (!last) return '';
-    return '👶 아기 도약기 확인 (' + fmt(last.now) + ')\n출산 예정일: ' + fmt(last.due) + ' · ' + last.t.age + '\n' + last.t.status + '\n' + last.t.next + '\n👉 ' + TOOL_NAME + ': ' + link();
-  }
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-nav">
+      <a href="/privacy.html">개인정보처리방침</a>
+      <span>·</span>
+      <a href="/terms.html">이용약관</a>
+      <span>·</span>
+      <a href="/guides/index.html">도약기 가이드</a>
+    </div>
+    <div>© 2026 원더윅스 계산기 · 아기 도약기 캘린더 포탈. All rights reserved.</div>
+  </footer>
 
-  on('due', 'input', render);
-  on('due', 'change', render);
-  on('btn-clear', 'click', function () { var i = $('due'); if (i) i.value = ''; render(); });
-  on('btn-copy', 'click', function () { if (last) copyText(summary()); });
-  on('btn-share', 'click', function () {
-    if (!last) return;
-    var text = summary();
-    if (navigator.share) {
-      navigator.share({ title: TOOL_NAME, text: text, url: link() }).catch(function (e) { if (!e || e.name !== 'AbortError') copyText(text); });
-    } else { copyText(text); }
-  });
+  <!-- Toast Notification -->
+  <div class="toast" id="globalToast" role="status" aria-live="polite"></div>
 
-  (function fillBirthHelper() {
-    var w = $('ga-w'), dd = $('ga-d'); if (!w || !dd) return;
-    var i, o;
-    for (i = 22; i <= 44; i++) { o = document.createElement('option'); o.value = i; o.textContent = i + '주'; if (i === 40) o.selected = true; w.appendChild(o); }
-    for (i = 0; i <= 6; i++) { o = document.createElement('option'); o.value = i; o.textContent = '+ ' + i + '일'; dd.appendChild(o); }
-  })();
-  on('btn-birth', 'click', function () {
-    var b = parseYMD(($('birth') || {}).value), w = parseInt(($('ga-w') || {}).value, 10), dd = parseInt(($('ga-d') || {}).value, 10);
-    if (!b || isNaN(w) || isNaN(dd)) { showToastNotification('출생일과 출생 당시 임신 주수를 넣어 주세요.'); return; }
-    var due = addDays(b, 280 - (w * 7 + dd));
-    var i = $('due'); if (i) i.value = toYMD(due);
-    render();
-    showToastNotification('출산 예정일을 맞췄습니다: ' + fmt(due));
-  });
+  <!-- Hidden Canvas for PNG Card -->
+  <canvas id="cardCanvas" style="display: none;"></canvas>
 
-  /* ---------- start: URL (?due=) -> saved date -> empty ---------- */
-  (function init() {
-    var q = null, saved = null;
-    try { q = new URLSearchParams(location.search).get('due'); } catch (e) { q = null; }
-    try { saved = localStorage.getItem(STORE); } catch (e) { saved = null; }
-    var v = q && parseYMD(q) ? q : (saved && parseYMD(saved) ? saved : '');
-    var i = $('due'); if (i) i.value = v;
-    render();
-    if (q && !parseYMD(q)) setErr('링크의 날짜가 올바르지 않아 무시했습니다.');
-  })();
-})();
-</script>
-<!-- LOGIC END -->
+  <!-- JavaScript Logic -->
+  <script>
+    (function () {
+      'use strict';
+      var SITE = 'https://wonderweeksportal.enjoy-onepage.com';
+      var TOOL_NAME = '원더윅스 계산기';
+      var STORE = 'wonderWeeksDueDate';
+      var WDAY = '일월화수목금토';
+
+      var LEAPS = [
+        { n: 1, start: 4, end: 6, name: '감각의 세계', changes: '감각이 빠르게 예민해져서 보고 듣고 닿는 것이 모두 새롭게 느껴집니다.', signs: '울음 증가, 잦은 안아주기 요구, 얕은 수면', helps: '충분한 스킨십과 안아주기, 조용하고 일정한 수면 환경 조성' },
+        { n: 2, start: 7, end: 10, name: '패턴의 세계', changes: '모양, 명암, 자기 손발 같은 단순한 패턴을 인식합니다.', signs: '관심 요구 증가, 수유 시 보챔, 밤에 자주 깸', helps: '얼굴 마주 보고 대화하기, 흑백 모빌/초점책, 손발 탐색 시간 제공' },
+        { n: 3, start: 11, end: 13, name: '미세한 변화의 세계', changes: '매끄러운 움직임과 목소리, 빛의 작은 변화를 구분합니다.', signs: '갑작스러운 매달림, 목욕 등 일상 중 보챔', helps: '목소리 톤을 바꾸며 말하기, 천천히 부드럽게 흔들어주기' },
+        { n: 4, start: 14, end: 20, name: '사건의 세계 (백일의 기적/기절)', changes: '손 뻗기, 잡기, 뒤집기, 옹알이가 급증하는 가장 큰 도약기입니다.', signs: '4개월 수면퇴행과 겹쳐 가장 길고 강한 보챔 발생', helps: '일정한 수면의식 유지, 옹알이 즉각 반응, 손 닿는 장난감 배치' },
+        { n: 5, start: 22, end: 27, name: '관계의 세계', changes: '사물과 사람 사이의 거리, 부모와의 분리를 인지합니다.', signs: '엄마가 눈앞에서 사라지면 심하게 우는 분리불안 시작', helps: '까꿍 놀이, 잠깐 방을 비울 때도 다정하게 인사하고 돌아오기' },
+        { n: 6, start: 33, end: 38, name: '분류의 세계', changes: '동물, 음식, 사물 등의 공통점을 묶어서 이해합니다.', signs: '기저귀 갈기나 옷 입기 거부, 호불호 표현', helps: '사물 이름 알려주기, 동물 소리 흉내 내기, 그림책 함께 보기' },
+        { n: 7, start: 41, end: 47, name: '순서의 세계', changes: '쌓기, 넣기, 빼기 등 순서대로 행동하는 원리를 깨닫습니다.', signs: '스스로 하려다 실패하면 큰 짜증을 냄', helps: '충분히 스스로 해볼 시간 주기, 블록 쌓기 등 단계별 놀이' },
+        { n: 8, start: 51, end: 55, name: '프로그램의 세계', changes: '여러 행동이 모여 하나의 일과(식사, 외출 등)가 됨을 압니다.', signs: '일과가 바뀌면 떼쓰기, 규칙 시험하기', helps: '일정한 일과표 유지, 다음에 할 일을 미리 다정하게 예고하기' },
+        { n: 9, start: 59, end: 65, name: '원칙의 세계', changes: '다양한 방법 시도, 협상, 간단한 흉내/역할 놀이를 시작합니다.', signs: '"싫어!" 거부기 진입, 화가 나면 때리는 행동', helps: '일관된 훈육 기준, 감정을 읽어주는 대화, 부드러운 대체 행동 제시' },
+        { n: 10, start: 70, end: 75, name: '시스템의 세계', changes: '가족 내 역할, 옳고 그름, 독립적인 자아 감각이 형성됩니다.', signs: '고집 피우기, 잠자리 거부, 잦은 감정 기복', helps: '아이의 독립심 존중, 작은 심부름/책임감 부여, 충분한 격려' }
+      ];
+
+      function $(id) { return document.getElementById(id); }
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+      function parseYMD(s) {
+        var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || '').trim());
+        if (!m) return null;
+        var y = +m[1], mo = +m[2], d = +m[3];
+        var dt = new Date(y, mo - 1, d);
+        if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+        return dt;
+      }
+      function toYMD(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+      function addDays(d, n) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() + n); return x; }
+      function dayDiff(a, b) { return Math.round((Date.UTC(b.getFullYear(), b.getMonth(), b.getDate()) - Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())) / 86400000); }
+      function today() { var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
+      function fmt(d) { return d.getFullYear() + '.' + pad(d.getMonth() + 1) + '.' + pad(d.getDate()); }
+      function fmtFull(d) { return d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + WDAY.charAt(d.getDay()) + ')'; }
+      function ageText(days) { var w = Math.floor(days / 7), r = days % 7; return w + '주' + (r ? ' ' + r + '일' : '') + ' (D+' + days + '일)'; }
+      function setText(id, t) { var el = $(id); if (el) el.textContent = t; }
+
+      function compute(due, now) {
+        var d = dayDiff(due, now);
+        var rows = LEAPS.map(function (L) {
+          var s = L.start * 7, e = L.end * 7;
+          return {
+            L: L,
+            s: s,
+            e: e,
+            start: addDays(due, s),
+            end: addDays(due, e - 1),
+            status: d >= e ? 'past' : (d >= s ? 'now' : 'upcoming')
+          };
+        });
+        var cur = null, next = null, i;
+        for (i = 0; i < rows.length; i++) { if (rows[i].status === 'now') { cur = rows[i]; break; } }
+        for (i = 0; i < rows.length; i++) { if (rows[i].status === 'upcoming') { next = rows[i]; break; } }
+        return { d: d, rows: rows, cur: cur, next: next };
+      }
+
+      var lastResult = null;
+
+      function renderUI() {
+        var input = $('due');
+        if (!input) return;
+        var raw = input.value;
+        if (!raw) return;
+
+        var due = parseYMD(raw);
+        if (!due) return;
+
+        var now = today();
+        var res = compute(due, now);
+        lastResult = { due: due, now: now, res: res };
+
+        var stageBadge = $('stageBadge');
+        var stageIcon = $('stageIcon');
+        var stageWeather = $('stageWeather');
+        var stageCard = $('stageCard');
+
+        // Age display
+        if (res.d < 0) {
+          setText('outAge', '출산 예정일까지 ' + (-res.d) + '일 남았습니다 (예정일: ' + fmtFull(due) + ')');
+        } else if (res.d === 0) {
+          setText('outAge', '축하합니다! 오늘이 출산 예정일입니다 🎉');
+        } else {
+          setText('outAge', '출산 예정일 기준 ' + ageText(res.d));
+        }
+
+        // Current Stage Card logic
+        if (res.cur) {
+          var c = res.cur;
+          stageIcon.textContent = '🌀';
+          stageWeather.textContent = '폭풍 성장기 (원더윅스 진행 중)';
+          stageCard.style.background = 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)';
+          setText('outStatusTitle', c.L.n + '단계: ' + c.L.name);
+          setText('outNext', '📅 ' + fmt(c.start) + ' ~ ' + fmt(c.end) + ' (전체 ' + (c.e - c.s) + '일 중 ' + (res.d - c.s + 1) + '일째)');
+          
+          $('outTip').innerHTML = '<strong>💡 보일 수 있는 모습:</strong> ' + c.L.signs + '<br><strong style="color: #6ee7b7;">❤️ 힐링 돌봄 팁:</strong> ' + c.L.helps;
+        } else if (res.next) {
+          var n = res.next;
+          var until = n.s - res.d;
+          stageIcon.textContent = '☀️';
+          stageWeather.textContent = '평온한 안정기 (맑음)';
+          stageCard.style.background = 'linear-gradient(135deg, #059669 0%, #047857 100%)';
+          setText('outStatusTitle', res.d < 0 ? '출산 예정일 전입니다 👶' : '비교적 평온하게 성장하는 시기입니다');
+          setText('outNext', '다음 ' + n.L.n + '단계(' + n.L.name + ')까지 약 ' + until + '일 남았습니다 (' + fmt(n.start) + ' 시작)');
+          
+          $('outTip').innerHTML = '<strong>✨ 다음 도약에서 나타날 변화:</strong> ' + n.L.changes;
+        } else {
+          stageIcon.textContent = '🎉';
+          stageWeather.textContent = '도약기 10단계 완료';
+          stageCard.style.background = 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
+          setText('outStatusTitle', '모든 원더윅스 10단계를 무사히 마쳤습니다!');
+          setText('outNext', '아기가 이제 첫 번째 시스템적 발달을 완성했습니다.');
+          $('outTip').innerHTML = '그동안 아기와 함께 수많은 밤을 지새우며 성장해 오신 부모님, 진심으로 고생 많으셨습니다! 👏';
+        }
+
+        // Render Timeline Cards (Zero-overflow mobile cards)
+        var listEl = $('leapsList');
+        if (listEl) {
+          listEl.innerHTML = '';
+          res.rows.forEach(function(r) {
+            var card = document.createElement('a');
+            card.href = '/guides/leap' + r.L.n + '.html';
+            card.className = 'leap-item ' + r.status;
+
+            var statusBadgeText = r.status === 'past' ? '완료' : (r.status === 'now' ? '🔥 지금 진행 중' : (r.s - res.d) + '일 뒤');
+
+            card.innerHTML = 
+              '<div class="leap-info">' +
+                '<div class="leap-step-row">' +
+                  '<span class="leap-num">' + r.L.n + '단계</span>' +
+                  '<span class="leap-name">' + r.L.name + '</span>' +
+                '</div>' +
+                '<div class="leap-date-range">' + r.L.start + '~' + (r.L.end - 1) + '주 · ' + fmt(r.start) + ' ~ ' + fmt(r.end) + '</div>' +
+              '</div>' +
+              '<div class="leap-badge ' + r.status + '">' + statusBadgeText + '</div>';
+
+            listEl.appendChild(card);
+          });
+        }
+
+        try { localStorage.setItem(STORE, raw); } catch(e) {}
+      }
+
+      /* Preset Date Helper */
+      window.setPresetDaysAgo = function(days) {
+        var target = addDays(today(), -days);
+        var input = $('due');
+        if (input) {
+          input.value = toYMD(target);
+          renderUI();
+          showToast('예정일이 ' + toYMD(target) + '으로 설정되었습니다.');
+        }
+      };
+
+      /* Toast Notification */
+      var toastTimeout = null;
+      function showToast(msg) {
+        var toast = $('globalToast');
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(function() {
+          toast.classList.remove('show');
+        }, 2200);
+      }
+
+      /* Copy & Share */
+      function getSummaryText() {
+        if (!lastResult) return '';
+        var r = lastResult.res;
+        var due = lastResult.due;
+        var text = [
+          '👶 [원더윅스 계산기 : 우리 아기 도약기 일정]',
+          '• 출산 예정일: ' + fmtFull(due),
+          '• 아기 월령: ' + ageText(r.d)
+        ];
+        if (r.cur) {
+          text.push('• 현재 상태: 🌀 ' + r.cur.L.n + '단계 도약기 진행 중 (' + r.cur.L.name + ')');
+          text.push('• 기간: ' + fmt(r.cur.start) + ' ~ ' + fmt(r.cur.end));
+        } else if (r.next) {
+          text.push('• 현재 상태: ☀️ 평온한 시기 (다음 도약까지 D-' + (r.next.s - r.d) + '일)');
+        }
+        text.push('👉 우리 아기 도약기 확인하기: ' + SITE);
+        return text.join('\n');
+      }
+
+      window.copyWonderweeksSummary = function() {
+        var text = getSummaryText();
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).then(function() {
+            showToast('도약기 요약이 클립보드에 복사되었습니다! 📋');
+          }).catch(function() {
+            showToast('복사에 실패했습니다.');
+          });
+        } else {
+          showToast('복사를 지원하지 않는 환경입니다.');
+        }
+      };
+
+      window.shareWonderweeksResult = function() {
+        var text = getSummaryText();
+        if (navigator.share) {
+          navigator.share({
+            title: '원더윅스 계산기 | 우리 아기 도약기',
+            text: text,
+            url: SITE
+          }).catch(function(e) {
+            if (e.name !== 'AbortError') copyWonderweeksSummary();
+          });
+        } else {
+          copyWonderweeksSummary();
+        }
+      };
+
+      /* High-Retina 2x Canvas Baby Card PNG Generator */
+      window.downloadWonderweeksCardPNG = function() {
+        if (!lastResult) {
+          showToast('출산 예정일을 먼저 선택해 주세요.');
+          return;
+        }
+        var canvas = $('cardCanvas');
+        var ctx = canvas.getContext('2d');
+        var scale = 2;
+        var w = 420 * scale;
+        var h = 560 * scale;
+
+        canvas.width = w;
+        canvas.height = h;
+
+        // Background
+        ctx.fillStyle = '#faf7ff';
+        ctx.fillRect(0, 0, w, h);
+
+        // Header Background
+        var isCurrentLeap = !!lastResult.res.cur;
+        ctx.fillStyle = isCurrentLeap ? '#7c3aed' : '#059669';
+        ctx.fillRect(0, 0, w, 110 * scale);
+
+        // Card Border
+        ctx.strokeStyle = '#e5e7eb';
+        ctx.lineWidth = 1 * scale;
+        ctx.strokeRect(0, 0, w, h);
+
+        // Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold ' + (12 * scale) + 'px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('WONDER WEEKS BABY CALENDAR', w / 2, 34 * scale);
+
+        ctx.font = 'bold ' + (22 * scale) + 'px -apple-system, sans-serif';
+        var mainTitle = isCurrentLeap ? '🌀 ' + lastResult.res.cur.L.n + '단계 도약기 진행 중' : '☀️ 평온한 성장기';
+        ctx.fillText(mainTitle, w / 2, 68 * scale);
+
+        ctx.font = 'normal ' + (11 * scale) + 'px -apple-system, sans-serif';
+        ctx.fillStyle = '#f3e8ff';
+        ctx.fillText(ageText(lastResult.res.d) + ' · 예정일 ' + fmt(lastResult.due), w / 2, 92 * scale);
+
+        // Status Card Box
+        var y = 135 * scale;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(20 * scale, y, w - 40 * scale, 130 * scale);
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.strokeRect(20 * scale, y, w - 40 * scale, 130 * scale);
+
+        ctx.textAlign = 'left';
+        ctx.font = 'bold ' + (13 * scale) + 'px -apple-system, sans-serif';
+        ctx.fillStyle = isCurrentLeap ? '#7c3aed' : '#059669';
+        var subHeader = isCurrentLeap ? lastResult.res.cur.L.name + ' (' + lastResult.res.cur.L.start + '~' + (lastResult.res.cur.L.end - 1) + '주)' : '다음 도약까지 안정기';
+        ctx.fillText(subHeader, 35 * scale, y + 30 * scale);
+
+        ctx.font = 'normal ' + (10.5 * scale) + 'px -apple-system, sans-serif';
+        ctx.fillStyle = '#4b5563';
+        if (isCurrentLeap) {
+          ctx.fillText('• 징후: ' + lastResult.res.cur.L.signs, 35 * scale, y + 58 * scale);
+          ctx.fillText('• 돌봄: ' + lastResult.res.cur.L.helps, 35 * scale, y + 80 * scale);
+          ctx.fillText('• 기간: ' + fmt(lastResult.res.cur.start) + ' ~ ' + fmt(lastResult.res.cur.end), 35 * scale, y + 104 * scale);
+        } else if (lastResult.res.next) {
+          ctx.fillText('• 다음 도약: ' + lastResult.res.next.L.n + '단계 ' + lastResult.res.next.L.name, 35 * scale, y + 58 * scale);
+          ctx.fillText('• 시작 예정일: ' + fmt(lastResult.res.next.start) + ' (D-' + (lastResult.res.next.s - lastResult.res.d) + '일)', 35 * scale, y + 80 * scale);
+          ctx.fillText('• 도약기 변화: ' + lastResult.res.next.L.changes, 35 * scale, y + 104 * scale);
+        }
+
+        // Timeline Summary 10 Leaps
+        y += 150 * scale;
+        ctx.font = 'bold ' + (11 * scale) + 'px -apple-system, sans-serif';
+        ctx.fillStyle = '#1f1633';
+        ctx.fillText('📅 전체 도약기 10단계 일정 요약', 25 * scale, y);
+
+        y += 16 * scale;
+        ctx.font = 'normal ' + (9.5 * scale) + 'px monospace';
+        lastResult.res.rows.forEach(function(r, idx) {
+          if (idx < 5) {
+            var lineY = y + idx * 22 * scale;
+            var isCurrent = r.status === 'now';
+            ctx.fillStyle = isCurrent ? '#7c3aed' : '#4b5563';
+            if (isCurrent) ctx.font = 'bold ' + (9.5 * scale) + 'px monospace';
+            else ctx.font = 'normal ' + (9.5 * scale) + 'px monospace';
+            ctx.fillText(r.L.n + '단계: ' + r.L.name + ' (' + fmt(r.start) + ' ~ ' + fmt(r.end) + ')' + (isCurrent ? ' ★' : ''), 25 * scale, lineY);
+          }
+        });
+
+        // Encouragement Footer
+        y = h - 60 * scale;
+        ctx.fillStyle = '#f3e8ff';
+        ctx.fillRect(20 * scale, y, w - 40 * scale, 34 * scale);
+        ctx.fillStyle = '#6d28d9';
+        ctx.font = 'bold ' + (10 * scale) + 'px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('엄마 아빠의 따뜻한 품이 아기에게 가장 큰 힘이 됩니다 ❤️', w / 2, y + 21 * scale);
+
+        ctx.fillStyle = '#9ca3af';
+        ctx.font = 'normal ' + (8 * scale) + 'px -apple-system, sans-serif';
+        ctx.fillText('wonderweeksportal.enjoy-onepage.com', w / 2, h - 10 * scale);
+
+        // Trigger Download
+        var link = document.createElement('a');
+        link.download = '아기도약기_원더윅스카드_' + new Date().toISOString().slice(0, 10) + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('아기 도약기 카드 PNG가 저장되었습니다! 📥');
+      };
+
+      // Events
+      $('due').addEventListener('input', renderUI);
+      $('due').addEventListener('change', renderUI);
+
+      // Birth date helper logic
+      (function fillBirthHelper() {
+        var w = $('ga-w'), dd = $('ga-d');
+        if (!w || !dd) return;
+        for (var i = 22; i <= 44; i++) {
+          var o = document.createElement('option');
+          o.value = i;
+          o.textContent = i + '주';
+          if (i === 40) o.selected = true;
+          w.appendChild(o);
+        }
+        for (var j = 0; j <= 6; j++) {
+          var od = document.createElement('option');
+          od.value = j;
+          od.textContent = '+ ' + j + '일';
+          dd.appendChild(od);
+        }
+      })();
+
+      $('btn-birth').addEventListener('click', function () {
+        var b = parseYMD(($('birth') || {}).value);
+        var w = parseInt(($('ga-w') || {}).value, 10);
+        var dd = parseInt(($('ga-d') || {}).value, 10);
+        if (!b || isNaN(w) || isNaN(dd)) {
+          showToast('출생일과 출생 당시 임신 주수를 선택해 주세요.');
+          return;
+        }
+        var due = addDays(b, 280 - (w * 7 + dd));
+        $('due').value = toYMD(due);
+        renderUI();
+        showToast('출산 예정일이 계산되었습니다: ' + fmtFull(due));
+      });
+
+      // Init
+      (function init() {
+        var q = null, saved = null;
+        try { q = new URLSearchParams(location.search).get('due'); } catch (e) { q = null; }
+        try { saved = localStorage.getItem(STORE); } catch (e) { saved = null; }
+        var v = q && parseYMD(q) ? q : (saved && parseYMD(saved) ? saved : '');
+        if (!v) {
+          // Default to 120 days ago (4th leap stage sample) for immediate delightful demonstration
+          v = toYMD(addDays(today(), -120));
+        }
+        $('due').value = v;
+        renderUI();
+      })();
+
+    })();
+  </script>
 </body>
 </html>
